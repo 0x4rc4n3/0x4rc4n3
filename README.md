@@ -72,7 +72,17 @@
 
 ## 🧰 Technical Arsenal
 
-Python (Security) | C++ | Assembly (Low-Level) | Bash | SQL | Linux (Kali/Ubuntu) | Wireshark | Docker | Git | Flask
+- **Python (Security)
+- **C++**
+- **Assembly (Low-Level)**
+- **Bash**
+- **SQL**
+- **Linux (Kali/Ubuntu)**
+- **Wireshark**
+- **Docker**
+- **Git**
+- **Flask**
+
 
 ---
 
