@@ -3,7 +3,7 @@
 **Cyber Security Student | Post-Quantum Cryptography Researcher | CTF Engineer**
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0x4rc4n3-blue)](https://www.linkedin.com/in/0x4rc4n3/)
-[![GitHub](https://img.shields.io/badge/GitHub-0x4rc4n3-black)](https://github.com/0x4rc4n3)
+[![GitHub](https://img.shields.io/badge/GitHub-0x4rc4n3-orange)](https://github.com/0x4rc4n3)
 [![Email](https://img.shields.io/badge/Email-mudassirbhatti276@gmail.com-red)](mailto:mudassirbhatti276@gmail.com)
 [![Phone](https://img.shields.io/badge/Phone-+923116991342-green)](tel:+923116991342)
 
