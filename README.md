@@ -1,4 +1,4 @@
-# 💀 MUDASSIR JAVED (0x4rc4n3)
+# 🕵️ MUDASSIR JAVED (0x4rc4n3)
 
 **Cyber Security Student | Post-Quantum Cryptography Researcher | CTF Engineer**
 
@@ -28,7 +28,7 @@
 
 🏆 **Exhibited at:** 2nd Industrial Open House, KFUEIT
 
-🔗 [Repository] → *[](https://github.com/0x4rc4n3/ScatterID.git)*
+🔗 [Repository] → *[ScatterID](https://github.com/0x4rc4n3/ScatterID.git)*
 
 ---
 
@@ -40,7 +40,7 @@
 | **Deauth Module** | Layer-2 wireless deauthentication simulation (educational) |
 | **Bash Hardening Scripts** | Linux security automation for Ubuntu/Kali |
 
-🔗 [Security Utilities Repo] → *Link your toolkit repo here*
+🔗 [Security Utilities Repo] → *[DID vs Traditional login](https://github.com/0x4rc4n3/Decentralized-vs-Centralized-Identity-System.git)*
 
 ---
 
