@@ -72,7 +72,7 @@
 
 ## 🧰 Technical Arsenal
 
-- **Python (Security)
+- **Python (Security)**
 - **C++**
 - **Assembly (Low-Level)**
 - **Bash**
@@ -89,7 +89,7 @@
 ## 📊 Education
 
 **BSc Cyber Security** — Khwaja Fareed University (KFUEIT)  
-*2022–2026 | CGPA: 3.00/4.00*  
+*2022–2026 | CGPA: 3.04/4.00*  
 Relevant: Cryptography, Network Defense, Digital Forensics, Applied Cryptology
 
 ---
