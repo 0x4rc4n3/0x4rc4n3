@@ -47,8 +47,8 @@
 ## 🏆 CTF & Hackathon Highlights
 
 - **Top 10 Finalist** — Ignite Regional CTF Hackathon (crypto, reverse engineering, forensics)
-- **Platform Engineer** — University CTF & Hackathon (built scoring engine + web/crypto challenges)
-- **Active Platforms:** OverTheWire (Bandit), TryHackMe, PicoCTF, Advent of Code
+- **Platform Engineer** — University CTF & Hackathon (setup scoring engine + web/crypto challenges)
+- **Active Platforms:** OverTheWire , TryHackMe, PicoCTF, Advent of Code
 
 ---
 
@@ -71,3 +71,21 @@
 ---
 
 ## 🧰 Technical Arsenal
+
+- **Python (Security) | C++ | Assembly (Low-Level) | Bash | SQL
+- **Linux (Kali/Ubuntu) | Wireshark | Docker | Git | Flask
+
+---
+
+## 📊 Education
+
+**BSc Cyber Security** — Khwaja Fareed University (KFUEIT)  
+*2022–2026 | CGPA: 3.00/4.00*  
+Relevant: Cryptography, Network Defense, Digital Forensics, Applied Cryptology
+
+---
+
+📫 **Let's connect:**  
+[LinkedIn](https://www.linkedin.com/in/0x4rc4n3/) • [GitHub](https://github.com/0x4rc4n3) • `mudassirbhatti276@gmail.com`
+
+> *"Building quantum-resistant identity for the next generation of the web."*
