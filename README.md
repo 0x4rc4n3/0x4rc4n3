@@ -86,3 +86,14 @@ Python, C/C++, Assembly, Bash, SQL, TypeScript/Node.js, Flask, Docker, Git, Linu
 
 **BSc Cyber Security**, Khwaja Fareed University of Engineering and IT (KFUEIT), 2022-2026
 Coursework: Cryptography, Network Defense, Digital Forensics, Applied Cryptology
+
+## Portfolio Website and CMS
+
+This repository also contains the portfolio website source. Vercel builds the static site with `npm run build` and serves the generated `dist/` directory. The Vercel settings are recorded in `vercel.json` so the build behavior is reproducible.
+
+- **Site content:** `content/site.json`, `content/works/`, and `content/blogs/`
+- **CMS:** open `/admin/` on the deployed site; the CMS backend is configured for `0x4rc4n3/0x4rc4n3` on `main`
+- **Publishing:** CMS edits are committed to GitHub; Vercel rebuilds from the updated branch
+- **Local preview build:** run `npm run build`, then serve `dist/` with any static file server
+
+The GitHub Actions workflow only validates that the site builds; Vercel is the deployment host. Keep any CMS access token private and restrict it to this repository with only the required contents permissions.
