@@ -41,7 +41,7 @@ const fix = (html, b) => html.replace(/(src|href)="\/(?!\/)/g, `$1="${b}`);
 const initials = s => s.split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase();
 const hue = s => [...s].reduce((a, c) => a + c.charCodeAt(0), 0) % 360;
 const thumb = (it, cls) => it.image ? `<img class="thumb ${cls}" src="${esc(it.image)}" alt="">` : `<span class="thumb ${cls}" style="background:hsl(${hue(it.title)} 35% 55%)">${esc(initials(it.title))}</span>`;
-const card = (it, kind, b, small, excerpt = false) => `<a class="card" href="${b}${kind}/${it.slug}/">${thumb(it, small ? 's' : '')}<span class="ct"><span class="${small ? 'ctitle sm' : 'ctitle'}">${esc(it.title)}</span>${it.type ? `<span class="tag">${esc(it.type)}</span>` : ''}${excerpt && it.summary ? `<span class="excerpt">${esc(it.summary)}</span>` : ''}</span><span class="chev">&gt;</span></a>`;
+const card = (it, kind, b, small, excerpt = false) => `<a class="card ${kind === 'blogs' ? 'blog-card' : 'work-card'}" href="${b}${kind}/${it.slug}/">${thumb(it, small ? 's' : '')}<span class="ct"><span class="${small ? 'ctitle sm' : 'ctitle'}">${esc(it.title)}</span>${it.type ? `<span class="tag">${esc(it.type)}</span>` : ''}${excerpt && kind === 'works' && (it.impact || it.summary) ? `<span class="impact">${esc(it.impact || it.summary)}</span>` : excerpt && it.summary ? `<span class="excerpt">${esc(it.summary)}</span>` : ''}</span><span class="chev">&gt;</span></a>`;
 const side = (b, showW = true, showB = true) =>
   (showW ? `<h2>Latest Work</h2>${works.slice(0, 4).map(w => card(w, 'works', b)).join('')}<a class="btn sm" href="${b}works/">All Works &gt;</a>` : '') +
   (showB && blogs.length ? `<h2 class="gap">Latest Blogs</h2>${blogs.slice(0, 4).map(x => card(x, 'blogs', b, true)).join('')}<a class="btn sm" href="${b}blogs/">All Blogs &gt;</a>` : '');
@@ -61,7 +61,7 @@ function page({ title, desc, depth, main, aside, archive = false }) {
 <script>const mb=document.getElementById('mb'),nv=document.getElementById('nav');mb.onclick=()=>{const o=nv.hidden;nv.hidden=!o;mb.textContent=o?'CLOSE':'MENU';mb.setAttribute('aria-expanded',o)};const vn=document.getElementById('visitor-number');let number=sessionStorage.getItem('retro-visitor-number');if(!number){number=String(Math.floor(1000+Math.random()*9000));sessionStorage.setItem('retro-visitor-number',number)}vn.textContent=number;const clock=document.getElementById('clock');function tick(){clock.textContent=new Intl.DateTimeFormat('en-US',{hour:'numeric',minute:'2-digit',second:'2-digit'}).format(new Date())}tick();setInterval(tick,1000)</script></body></html>`;
   return fix(html, b);
 }
-const crumbs = (b, a, cur) => `<div class="crumb"><a href="${b}">Home</a><span aria-hidden="true">&gt;</span><a href="${b}${a[0]}/"${cur ? '' : ' aria-current="page"'}>${a[1]}</a>${cur ? `<span aria-hidden="true">&gt;</span><span class="crumb-current">${esc(cur)}</span>` : ''}</div>`;
+const crumbs = (b, a, cur, currentHref) => `<div class="crumb"><a href="${b}">Home</a><span aria-hidden="true">&gt;</span><a href="${b}${a[0]}/"${cur ? '' : ' aria-current="page"'}>${a[1]}</a>${cur ? `<span aria-hidden="true">&gt;</span>${currentHref ? `<a class="crumb-current" href="${currentHref}" aria-current="page">${esc(cur)}</a>` : `<span class="crumb-current" aria-current="page">${esc(cur)}</span>`}` : ''}</div>`;
 
 // Home
 write('index.html', page({ title: `${site.name} | ${site.role} Portfolio`, depth: 0, aside: side('./'), main:
@@ -74,14 +74,14 @@ write('index.html', page({ title: `${site.name} | ${site.role} Portfolio`, depth
 // Works
 write('works/index.html', page({ title: `Works | ${site.name}`, depth: 1, archive: true, main: `${crumbs('../', ['works', 'Works'])}${works.map(w => card(w, 'works', '../', false, true)).join('')}` }));
 for (const w of works) write(`works/${w.slug}/index.html`, page({ title: `${w.title} | ${site.name}`, desc: w.summary, depth: 2, aside: side('../../', true, false), main:
-`${crumbs('../../', ['works', 'Works'], w.title)}<div class="meta">${[['TECH STACK', w.stack], ['PROJECT TYPE', w.type], ['DURATION', w.duration], ['IMPACT', w.impact]].filter(x => x[1]).map(x => `<p><b>${x[0]} :</b> <span>${esc(x[1])}</span></p>`).join('')}</div>
+`${crumbs('../../', ['works', 'Works'], w.title, `../../works/${w.slug}/`)}<div class="meta">${[['TECH STACK', w.stack], ['PROJECT TYPE', w.type], ['DURATION', w.duration], ['IMPACT', w.impact]].filter(x => x[1]).map(x => `<p><b>${x[0]} :</b> <span>${esc(x[1])}</span></p>`).join('')}</div>
 ${w.link ? `<a class="btn" href="${esc(w.link)}">VISIT SITE</a>` : ''}${w.image ? `<img class="cover" src="${esc(w.image)}" alt="">` : ''}
 <p class="lead">${esc(w.summary)}</p><div class="prose">${md(w.body)}</div>` }));
 
 // Blogs
 write('blogs/index.html', page({ title: `Blogs | ${site.name}`, depth: 1, archive: true, main: `${crumbs('../', ['blogs', 'Blogs'])}${blogs.map(x => card(x, 'blogs', '../', true, true)).join('') || '<p>No posts yet.</p>'}` }));
-for (const x of blogs) write(`blogs/${x.slug}/index.html`, page({ title: `${x.title} | ${site.name}`, desc: x.summary, depth: 2, aside: side('../../', false, true), main:
-`${crumbs('../../', ['blogs', 'Blogs'], x.title)}<p class="date">${esc(x.date)}</p>${x.image ? `<img class="cover" src="${esc(x.image)}" alt="">` : ''}<div class="prose">${md(x.body)}</div>` }));
+for (const [index, x] of blogs.entries()) write(`blogs/${x.slug}/index.html`, page({ title: `${x.title} | ${site.name}`, desc: x.summary, depth: 2, aside: side('../../', false, true), main:
+`${crumbs('../../', ['blogs', 'Blogs'], `No. ${String(x.order || index + 1).padStart(2, '0')}`)}<h1 class="blog-title">${esc(x.title)}</h1><p class="date">${esc(x.date)}</p>${x.image ? `<img class="cover" src="${esc(x.image)}" alt="">` : ''}<div class="prose">${md(x.body)}</div>` }));
 
 // Contact
 const c = site.contact;
