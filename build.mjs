@@ -61,7 +61,10 @@ function page({ title, desc, depth, main, aside, archive = false }) {
 <script>const mb=document.getElementById('mb'),nv=document.getElementById('nav');mb.onclick=()=>{const o=nv.hidden;nv.hidden=!o;mb.textContent=o?'CLOSE':'MENU';mb.setAttribute('aria-expanded',o)};const vn=document.getElementById('visitor-number');let number=sessionStorage.getItem('retro-visitor-number');if(!number){number=String(Math.floor(1000+Math.random()*9000));sessionStorage.setItem('retro-visitor-number',number)}vn.textContent=number;const clock=document.getElementById('clock');function tick(){clock.textContent=new Intl.DateTimeFormat('en-US',{hour:'numeric',minute:'2-digit',second:'2-digit'}).format(new Date())}tick();setInterval(tick,1000)</script></body></html>`;
   return fix(html, b);
 }
-const crumbs = (b, a, cur, currentHref) => `<div class="crumb"><a href="${b}">Home</a><span aria-hidden="true">&gt;</span><a href="${b}${a[0]}/"${cur ? '' : ' aria-current="page"'}>${a[1]}</a>${cur ? `<span aria-hidden="true">&gt;</span>${currentHref ? `<a class="crumb-current" href="${currentHref}" aria-current="page">${esc(cur)}</a>` : `<span class="crumb-current" aria-current="page">${esc(cur)}</span>`}` : ''}</div>`;
+const crumbs = (b, a, cur, currentHref, extraClass = '') => {
+  const className = extraClass ? `crumb ${extraClass}` : 'crumb';
+  return `<div class="${className}"><a href="${b}">Home</a><span aria-hidden="true">&gt;</span><a href="${b}${a[0]}/"${cur ? '' : ' aria-current="page"'}>${a[1]}</a>${cur ? `<span aria-hidden="true">&gt;</span>${currentHref ? `<a class="crumb-current" href="${currentHref}" aria-current="page">${esc(cur)}</a>` : `<span class="crumb-current" aria-current="page">${esc(cur)}</span>`}` : ''}</div>`;
+};
 
 // Home
 write('index.html', page({ title: `${site.name} | ${site.role} Portfolio`, depth: 0, aside: side('./'), main:
@@ -86,7 +89,7 @@ for (const [index, x] of blogs.entries()) write(`blogs/${x.slug}/index.html`, pa
 // Contact
 const c = site.contact;
 write('contact/index.html', page({ title: `Contact | ${site.name}`, depth: 1, main:
-`<h2 class="crumb"><a href="../">Home</a> &gt;</h2><h1>Contact</h1>
+`${crumbs('../', ['contact', 'Contact'], null, null, 'contact-crumb')}
 <form id="cf" ${site.formAction ? `action="${esc(site.formAction)}" method="POST"` : ''}><label>Name<input name="name" required></label><label>Email<input name="email" type="email" required></label><label>Message<textarea name="message" rows="6" required></textarea></label><button class="btn" type="submit">SUBMIT!</button></form>
 <script>${site.formAction ? '' : `document.getElementById('cf').onsubmit=e=>{e.preventDefault();const f=e.target;location.href='mailto:${c.email}?subject='+encodeURIComponent('Portfolio message from '+f.name.value)+'&body='+encodeURIComponent(f.message.value+'\\n\\n'+f.name.value+' <'+f.email.value+'>')}`}</script>
 <h2 class="gap">Connect</h2><p><strong>Email :</strong> <a href="mailto:${esc(c.email)}">${esc(c.email)}</a></p><p><strong>GitHub :</strong> <a href="${esc(c.github)}">${esc(c.github.replace('https://', ''))}</a></p><p><strong>LinkedIn :</strong> <a href="${esc(c.linkedin)}">${esc(c.linkedin.replace('https://www.', ''))}</a></p><p><strong>Phone :</strong> <a href="tel:${esc(c.phone.replace(/\s/g, ''))}">${esc(c.phone)}</a></p><p><strong>Location :</strong> ${esc(c.location)}</p>` }));
