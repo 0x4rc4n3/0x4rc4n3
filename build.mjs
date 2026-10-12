@@ -20,7 +20,15 @@ function md(t) {
 function parse(file) {
   const t = fs.readFileSync(file, 'utf8').replace(/^\uFEFF/, ''); const m = t.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
   const data = { slug: path.basename(file, '.md'), body: m ? m[2] : t };
-  if (m) for (const line of m[1].split(/\r?\n/)) { const k = line.match(/^(\w+):\s*(.*)$/); if (k) data[k[1]] = k[2].replace(/^["']|["']$/g, ''); }
+  if (m) for (const line of m[1].split(/\r?\n/)) {
+    const k = line.match(/^(\w+):\s*(.*)$/);
+    if (k) {
+      let value = k[2];
+      if (value.startsWith('"')) { try { value = JSON.parse(value); } catch {} }
+      else value = value.replace(/^'|'$/g, '');
+      data[k[1]] = value;
+    }
+  }
   return data;
 }
 const load = dir => fs.existsSync(R('content', dir)) ? fs.readdirSync(R('content', dir)).filter(f => f.endsWith('.md')).map(f => parse(R('content', dir, f))) : [];
@@ -33,27 +41,27 @@ const fix = (html, b) => html.replace(/(src|href)="\/(?!\/)/g, `$1="${b}`);
 const initials = s => s.split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase();
 const hue = s => [...s].reduce((a, c) => a + c.charCodeAt(0), 0) % 360;
 const thumb = (it, cls) => it.image ? `<img class="thumb ${cls}" src="${esc(it.image)}" alt="">` : `<span class="thumb ${cls}" style="background:hsl(${hue(it.title)} 35% 55%)">${esc(initials(it.title))}</span>`;
-const card = (it, kind, b, small) => `<a class="card" href="${b}${kind}/${it.slug}/">${thumb(it, small ? 's' : '')}<span class="ct"><span class="${small ? 'ctitle sm' : 'ctitle'}">${esc(it.title)}</span>${it.type ? `<span class="tag">${esc(it.type)}</span>` : ''}</span><span class="chev">&gt;</span></a>`;
+const card = (it, kind, b, small, excerpt = false) => `<a class="card" href="${b}${kind}/${it.slug}/">${thumb(it, small ? 's' : '')}<span class="ct"><span class="${small ? 'ctitle sm' : 'ctitle'}">${esc(it.title)}</span>${it.type ? `<span class="tag">${esc(it.type)}</span>` : ''}${excerpt && it.summary ? `<span class="excerpt">${esc(it.summary)}</span>` : ''}</span><span class="chev">&gt;</span></a>`;
 const side = (b, showW = true, showB = true) =>
   (showW ? `<h2>Latest Work</h2>${works.slice(0, 4).map(w => card(w, 'works', b)).join('')}<a class="btn sm" href="${b}works/">All Works &gt;</a>` : '') +
   (showB && blogs.length ? `<h2 class="gap">Latest Blogs</h2>${blogs.slice(0, 4).map(x => card(x, 'blogs', b, true)).join('')}<a class="btn sm" href="${b}blogs/">All Blogs &gt;</a>` : '');
 
-function page({ title, desc, depth, main, aside }) {
-  const b = '../'.repeat(depth) || './'; const c = site.contact;
+function page({ title, desc, depth, main, aside, archive = false }) {
+  const b = '../'.repeat(depth) || './';
   const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(title)}</title><meta name="description" content="${esc(desc || site.description)}">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🛡️%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Fragment+Mono:ital@0;1&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${b}style.css"></head><body>
-<header><div class="bar"><button class="btn" id="mb" aria-expanded="false" aria-controls="nav">MENU</button><a class="btn" href="${b}contact/">CONNECT</a></div>
+<header><div class="bar"><button class="btn" id="mb" aria-expanded="false" aria-controls="nav">MENU</button></div>
 <nav id="nav" hidden><a class="btn" href="${b}">HOME/ABOUT</a><a class="btn" href="${b}works/">WORKS</a><a class="btn" href="${b}blogs/">BLOGS</a><a class="btn" href="${b}contact/">CONTACT</a></nav></header>
-<div class="wrap"><main>${main}</main>${aside ? `<aside>${aside}</aside>` : ''}</div>
-<footer>© ${new Date().getFullYear()} ${esc(site.name)} · <a href="${esc(c.github)}">GitHub</a> · <a href="${esc(c.linkedin)}">LinkedIn</a></footer>
-<script>const mb=document.getElementById('mb'),nv=document.getElementById('nav');mb.onclick=()=>{const o=nv.hidden;nv.hidden=!o;mb.textContent=o?'CLOSE':'MENU';mb.setAttribute('aria-expanded',o)}</script></body></html>`;
+<div class="wrap${archive ? ' archive-wrap' : ''}"><main class="${archive ? 'archive' : ''}">${main}</main>${!archive && aside ? `<aside>${aside}</aside>` : ''}</div>
+<footer><div class="visitor" aria-label="Decorative visitor number; not a tracked visit count">VISITOR NO. : <strong id="visitor-number">0000</strong></div><time class="clock" id="clock" aria-label="Current local time"></time></footer>
+<script>const mb=document.getElementById('mb'),nv=document.getElementById('nav');mb.onclick=()=>{const o=nv.hidden;nv.hidden=!o;mb.textContent=o?'CLOSE':'MENU';mb.setAttribute('aria-expanded',o)};const vn=document.getElementById('visitor-number');let number=sessionStorage.getItem('retro-visitor-number');if(!number){number=String(Math.floor(1000+Math.random()*9000));sessionStorage.setItem('retro-visitor-number',number)}vn.textContent=number;const clock=document.getElementById('clock');function tick(){clock.textContent=new Intl.DateTimeFormat('en-US',{hour:'numeric',minute:'2-digit',second:'2-digit'}).format(new Date())}tick();setInterval(tick,1000)</script></body></html>`;
   return fix(html, b);
 }
-const crumbs = (b, a, cur) => `<h2 class="crumb"><a href="${b}">Home</a> &gt; <a href="${b}${a[0]}/">${a[1]}</a> &gt;</h2>${cur ? `<h1>${esc(cur)}</h1>` : ''}`;
+const crumbs = (b, a, cur) => `<div class="crumb"><a href="${b}">Home</a><span aria-hidden="true">&gt;</span><a href="${b}${a[0]}/"${cur ? '' : ' aria-current="page"'}>${a[1]}</a>${cur ? `<span aria-hidden="true">&gt;</span><span class="crumb-current">${esc(cur)}</span>` : ''}</div>`;
 
 // Home
 write('index.html', page({ title: `${site.name} | ${site.role} Portfolio`, depth: 0, aside: side('./'), main:
@@ -64,14 +72,14 @@ write('index.html', page({ title: `${site.name} | ${site.role} Portfolio`, depth
 <h2>${esc(site.extrasTitle)}</h2>${site.extras.map(e => `<p><strong>${esc(e.label)}:</strong> ${esc(e.text)}</p>`).join('')}` }));
 
 // Works
-write('works/index.html', page({ title: `Works | ${site.name}`, depth: 1, aside: side('../', false, true), main: `${crumbs('../', ['works', 'Works'])}<h1>Works</h1>${works.map(w => card(w, 'works', '../')).join('')}` }));
+write('works/index.html', page({ title: `Works | ${site.name}`, depth: 1, archive: true, main: `${crumbs('../', ['works', 'Works'])}${works.map(w => card(w, 'works', '../', false, true)).join('')}` }));
 for (const w of works) write(`works/${w.slug}/index.html`, page({ title: `${w.title} | ${site.name}`, desc: w.summary, depth: 2, aside: side('../../', true, false), main:
 `${crumbs('../../', ['works', 'Works'], w.title)}<div class="meta">${[['TECH STACK', w.stack], ['PROJECT TYPE', w.type], ['DURATION', w.duration], ['IMPACT', w.impact]].filter(x => x[1]).map(x => `<p><b>${x[0]} :</b> <span>${esc(x[1])}</span></p>`).join('')}</div>
 ${w.link ? `<a class="btn" href="${esc(w.link)}">VISIT SITE</a>` : ''}${w.image ? `<img class="cover" src="${esc(w.image)}" alt="">` : ''}
 <p class="lead">${esc(w.summary)}</p><div class="prose">${md(w.body)}</div>` }));
 
 // Blogs
-write('blogs/index.html', page({ title: `Blogs | ${site.name}`, depth: 1, aside: side('../', true, false), main: `${crumbs('../', ['blogs', 'Blogs'])}<h1>Blogs</h1>${blogs.map(x => card(x, 'blogs', '../', true)).join('') || '<p>No posts yet.</p>'}` }));
+write('blogs/index.html', page({ title: `Blogs | ${site.name}`, depth: 1, archive: true, main: `${crumbs('../', ['blogs', 'Blogs'])}${blogs.map(x => card(x, 'blogs', '../', true, true)).join('') || '<p>No posts yet.</p>'}` }));
 for (const x of blogs) write(`blogs/${x.slug}/index.html`, page({ title: `${x.title} | ${site.name}`, desc: x.summary, depth: 2, aside: side('../../', false, true), main:
 `${crumbs('../../', ['blogs', 'Blogs'], x.title)}<p class="date">${esc(x.date)}</p>${x.image ? `<img class="cover" src="${esc(x.image)}" alt="">` : ''}<div class="prose">${md(x.body)}</div>` }));
 

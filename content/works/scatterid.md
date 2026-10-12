@@ -1,23 +1,20 @@
 ---
-title: ScatterID
+title: "ScatterID"
 type: CAPSTONE
 order: 1
+image: /uploads/scatterid-card.jpg
 stack: Python, ML-DSA-65 (FIPS 204), Hyperledger Fabric
 duration: Final year project
-impact: Public on GitHub with docs and audit history.
-link: https://github.com/0x4rc4n3
-summary: A post-quantum decentralized identity system. Credentials are signed with lattice-based signatures and anchored on a tamper-evident ledger, so no raw personal data is stored centrally.
+impact: Exhibited at KFUEIT Industrial Open House.
+link: https://github.com/0x4rc4n3/ScatterID
+summary: A post-quantum identity verification framework using signed commitments, selective disclosure and ledger anchoring.
 ---
-## The Problem
-Centralized identity databases hold raw personal data, which makes them high-value breach targets. The goal was to prove a credential is genuine without storing personal data in one place, and to stay secure against future quantum attacks.
-
-## The Approach
-- **Post-quantum signatures:** credentials become privacy-preserving hash commitments, signed with FIPS 204 ML-DSA-65 lattice-based signatures.
-- **Tamper-evident ledger:** a permissioned Hyperledger Fabric network anchors credential fingerprints instead of a central credential database.
-- **Client tooling:** a client SDK and offline verification tooling let anyone check a credential.
-
-## The Security Audit
-I ran a self-directed audit of the finished system, fixed what I found, and re-verified each fix by running the system.
-- **Finding:** an unauthenticated admin interface, fixed and re-verified.
-- **Finding:** a disabled TLS certificate check, fixed and re-verified.
-- **Key learning:** build the system, then attack your own work. Source code, documentation and audit history are public on GitHub.
+## The problem
+Centralized identity databases hold raw personal data and create high-value breach targets. ScatterID explores how a credential can be verified without placing personal data in one central store.
+## The approach
+- **Post-quantum signatures:** FIPS 204 ML-DSA-65 signs credential commitments.
+- **Canonical commitments:** RFC 8785 JSON canonicalization and salted SHA3-256 commitments keep verification deterministic.
+- **Ledger anchoring:** Hyperledger Fabric records issuance and revocation state without storing raw identity data.
+- **Honest privacy claims:** ScatterID uses commitments and minimal-claim presentation; it does not claim to implement zero-knowledge proofs.
+## Links
+[Source repository](https://github.com/0x4rc4n3/ScatterID) · [Project website](https://www.scatterid.tech/)
