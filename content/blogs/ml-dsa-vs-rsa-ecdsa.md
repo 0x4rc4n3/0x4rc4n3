@@ -3,6 +3,7 @@ title: "ML-DSA vs. RSA/ECDSA: What Actually Changes"
 date: 2026-08-22
 summary: "Security basis, key sizes, performance characteristics, and standard maturity: what actually changes when moving from classical signatures to ML-DSA-65."
 order: 6
+category: "Post-Quantum"
 ---
 Swapping a signature scheme sounds like a drop-in replacement — same interface, different math. In practice, moving from RSA or ECDSA to ML-DSA (the FIPS 204 standard ScatterID uses) changes more than the algorithm underneath.
 

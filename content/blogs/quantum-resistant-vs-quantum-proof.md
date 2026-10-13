@@ -3,6 +3,7 @@ title: "\"Quantum-Resistant\" Doesn't Mean \"Quantum-Proof\""
 date: 2026-09-09
 summary: "NIST's finalized post-quantum standards are the strongest cryptographic bet available, not a permanent guarantee against being broken."
 order: 12
+category: "Post-Quantum"
 ---
 Somewhere between the NIST announcement and the marketing slide, "post-quantum" quietly turned into "unbreakable." It's an easy mistake to make. NIST spent eight years testing candidates, published three finalized standards, and the message that reached most engineering teams was: quantum computers solved, move on. That's not what actually happened.
 

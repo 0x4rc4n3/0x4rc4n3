@@ -3,6 +3,7 @@ title: "ScatterID Doesn't Use Zero-Knowledge Proofs — Here's What It Actually 
 date: 2026-08-31
 summary: "Why ScatterID uses salted hash commitments and minimal-claim presentation rather than formal zero-knowledge proofs, and why technical precision matters."
 order: 9
+category: "Privacy"
 ---
 "Zero-knowledge" gets attached to a lot of identity and privacy projects loosely, often as shorthand for "privacy-preserving" in general. It has a precise cryptographic meaning: a zero-knowledge proof lets one party prove a statement is true without revealing anything beyond the truth of that statement — including proving a property about hidden data (like "I'm over 18") without revealing the data itself (like a birthdate).
 

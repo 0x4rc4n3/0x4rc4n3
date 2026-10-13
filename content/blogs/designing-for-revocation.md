@@ -3,6 +3,7 @@ title: "Designing for Revocation Without a Central Database"
 date: 2026-08-16
 summary: "How ScatterID avoids a centralized database by anchoring revocation records directly on the Hyperledger Fabric ledger under the same trust model."
 order: 4
+category: "Identity"
 ---
 Most identity systems solve revocation the easy way: a central database with a status column. Need to revoke a credential? Flip a flag. It works, but it reintroduces the exact thing a decentralized credential system is supposed to avoid — a single authoritative store that every verifier has to trust and query.
 

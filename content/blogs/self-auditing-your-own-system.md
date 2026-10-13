@@ -3,6 +3,7 @@ title: "I Built a Post-Quantum Identity System. Then I Tried to Break It Myself.
 date: 2026-08-25
 summary: "Cryptographic soundness and system security are not the same thing. How a structured self-audit surfaced real-world implementation flaws."
 order: 7
+category: "Security"
 ---
 It's tempting to treat "cryptographically secure" as the finish line. ML-DSA-65 signatures are sound. The commitment scheme is sound. Ship it.
 
