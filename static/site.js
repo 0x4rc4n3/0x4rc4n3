@@ -77,7 +77,9 @@
   var input = document.getElementById('site-search-input');
   var results = document.getElementById('site-search-results');
   var searchStatus = document.getElementById('site-search-status');
-  if (toggle && panel && input && results && searchStatus) {
+  var searchView = document.getElementById('site-search-view');
+  var siteContent = document.getElementById('site-content');
+  if (toggle && panel && input && results && searchStatus && searchView && siteContent) {
     var searchIndex = null, searchLoad = null, searchTimer = null, requestId = 0;
     var loadSearchIndex = function () {
       if (searchIndex) return Promise.resolve(searchIndex);
@@ -96,12 +98,16 @@
       });
     };
     var closeSearch = function () {
-      panel.hidden = true; toggle.setAttribute('aria-expanded', 'false');
+      panel.hidden = true; searchView.hidden = true; siteContent.hidden = false;
+      input.value = ''; results.textContent = ''; searchStatus.textContent = '';
+      toggle.setAttribute('aria-expanded', 'false');
       toggle.setAttribute('aria-label', 'Open site search');
     };
     toggle.addEventListener('click', function () {
       var opening = panel.hidden;
       panel.hidden = !opening;
+      searchView.hidden = !opening; siteContent.hidden = opening;
+      if (!opening) { input.value = ''; results.textContent = ''; searchStatus.textContent = ''; }
       toggle.setAttribute('aria-expanded', String(opening));
       toggle.setAttribute('aria-label', opening ? 'Close site search' : 'Open site search');
       if (opening) input.focus();
@@ -124,13 +130,14 @@
             var at = item.b ? Math.max(0, item.b.toLowerCase().indexOf(terms[0])) : -1;
             var snippet = at >= 0 ? (at > 42 ? '…' : '') + item.b.slice(Math.max(0, at - 42), at + 118) + '…' : item.d;
             return { item: item, score: score, snippet: snippet };
-          }).filter(Boolean).sort(function (a, b) { return b.score - a.score || a.item.t.localeCompare(b.item.t); }).slice(0, 12);
+          }).filter(Boolean).sort(function (a, b) { return b.score - a.score || a.item.t.localeCompare(b.item.t); });
           matches.forEach(function (hit) {
             var a = document.createElement('a'); a.className = 'site-result'; a.href = hit.item.u;
             var kind = document.createElement('span'); kind.className = 'site-result-kind'; kind.textContent = hit.item.k;
             var title = document.createElement('span'); title.className = 'site-result-title'; highlight(title, hit.item.t, terms);
+            var category = document.createElement('span'); category.className = 'site-result-category'; highlight(category, hit.item.c, terms);
             var desc = document.createElement('span'); desc.className = 'site-result-desc'; highlight(desc, hit.snippet, terms);
-            a.appendChild(kind); a.appendChild(title); a.appendChild(desc); results.appendChild(a);
+            a.appendChild(kind); if (hit.item.c) a.appendChild(category); a.appendChild(title); a.appendChild(desc); results.appendChild(a);
           });
           searchStatus.textContent = matches.length ? matches.length + (matches.length === 1 ? ' RESULT' : ' RESULTS') : 'NO MATCHES. TRY ANOTHER WORD.';
         }).catch(function () { if (id === requestId) searchStatus.textContent = 'SEARCH IS TEMPORARILY UNAVAILABLE'; });
@@ -139,7 +146,7 @@
     input.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') { input.value = ''; results.textContent = ''; searchStatus.textContent = ''; closeSearch(); toggle.focus(); }
     });
-    document.addEventListener('click', function (e) { if (!panel.contains(e.target) && !toggle.contains(e.target)) closeSearch(); });
+    document.addEventListener('click', function (e) { if (!panel.contains(e.target) && !toggle.contains(e.target) && !searchView.contains(e.target)) closeSearch(); });
   }
 
 })();
