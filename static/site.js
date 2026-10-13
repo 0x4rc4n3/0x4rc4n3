@@ -28,9 +28,18 @@
       if (/^\d+$/.test(savedCount || '')) lastCount = savedCount;
     } catch (e) {}
     if (lastCount) vn.textContent = lastCount.padStart(4, '0');
+    var countedThisSession = false;
+    try { countedThisSession = sessionStorage.getItem('portfolio-view-counted') === '1'; } catch (e) {
+      try { countedThisSession = /(?:^|;\s*)portfolio-view-counted=1(?:;|$)/.test(document.cookie); } catch (ignored) {}
+    }
+    if (!countedThisSession) {
+      try { sessionStorage.setItem('portfolio-view-counted', '1'); }
+      catch (e) { try { document.cookie = 'portfolio-view-counted=1; Path=/; SameSite=Lax; Secure'; } catch (ignored) {} }
+    }
     var counterUrl = 'https://jbjzzvibtgtgzlbchqnm.supabase.co';
     var counterKey = 'sb_publishable_jyc4IQsrNU_G5B63HVzNPg_MPwC7RhD';
-    fetch(counterUrl + '/rest/v1/rpc/increment_portfolio_page_views', {
+    var rpc = countedThisSession ? 'get_portfolio_page_views' : 'increment_portfolio_page_views';
+    fetch(counterUrl + '/rest/v1/rpc/' + rpc, {
       method: 'POST',
       headers: { apikey: counterKey, Authorization: 'Bearer ' + counterKey, 'Content-Type': 'application/json' },
       body: '{}',

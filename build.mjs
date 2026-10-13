@@ -198,16 +198,17 @@ ${site.education?.length ? `<h2>${esc(site.educationTitle || 'Education')}</h2>$
 // ---------- Works ----------
 write('works/index.html', page({
   title: `Works | ${site.name}`, desc: `Projects by ${site.name}: post-quantum identity, authentication and crypto-agile SDK design.`, depth: 1, active: 'works', archive: true, path: 'works/',
-  main: `${crumbs('../', ['works', 'Works'])}<h1 class="sr-only">Works</h1>${works.map(w => card(w, 'works', '../', false, true)).join('')}`,
+  main: `${crumbs('../', ['works', 'Works'])}<h1 class="archive-heading">Works</h1>${works.map(w => card(w, 'works', '../', false, true)).join('')}`,
 }));
 for (const w of works) {
-  const isRepo = /^https?:\/\/(www\.)?github\.com\//i.test(w.link || '');
+  const repoUrl = /^https:\/\/github\.com\/[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+\/?$/i.test(w.link || '') ? w.link : '';
+  if (!repoUrl) fail(`works/${w.file}: expected a GitHub repository URL in "link"`);
   write(`works/${w.slug}/index.html`, page({
     title: `${w.title} | ${site.name}`, desc: w.summary, depth: 2, active: 'works', path: `works/${w.slug}/`, aside: side('../../', true, false),
     image: ogFor(w.image), imageAlt: w.imageAlt,
     main:
 `${crumbs('../../', ['works', 'Works'], w.title, `../../works/${w.slug}/`)}<h1 class="work-title">${esc(w.title)}</h1><div class="meta">${[['TECH STACK', w.stack], ['PROJECT TYPE', w.type], ['DURATION', w.duration], ['IMPACT', w.impact]].filter(x => x[1]).map(x => `<p><b>${x[0]} :</b> <span>${esc(x[1])}</span></p>`).join('')}</div>
-<p class="links">${w.link ? `<a class="btn" href="${esc(w.link)}" rel="noopener noreferrer">${isRepo ? 'VIEW SOURCE' : 'VISIT SITE'}</a>` : ''}${w.website ? `<a class="btn" href="${esc(w.website)}" rel="noopener noreferrer">PROJECT SITE</a>` : ''}</p>${w.image ? `<img class="cover" src="${esc(w.image)}" alt="${esc(w.imageAlt || `${w.title} preview`)}" decoding="async">` : ''}
+<p class="links"><a class="btn" href="${esc(repoUrl)}" rel="noopener noreferrer">GITHUB REPOSITORY</a></p>${w.image ? `<img class="cover" src="${esc(w.image)}" alt="${esc(w.imageAlt || `${w.title} preview`)}" decoding="async">` : ''}
 <p class="lead">${esc(w.summary)}</p><div class="prose">${md(w.body)}</div>`,
   }));
 }
@@ -218,12 +219,12 @@ const finder = b => `<div class="finder" role="search"><label class="finder-labe
 const blogList = (b, items, active) => `${finder(b)}${chipBar(b, active)}<p class="finder-status" id="bs-status" role="status" aria-live="polite"></p><div id="bl">${items.map(x => card(x, 'blogs', b, true, true)).join('') || '<p>No posts yet.</p>'}</div>`;
 write('blogs/index.html', page({
   title: `Blogs | ${site.name}`, desc: `Writing on post-quantum cryptography, identity, revocation and honest security engineering by ${site.name}.`, depth: 1, active: 'blogs', archive: true, path: 'blogs/',
-  main: `${crumbs('../', ['blogs', 'Blogs'])}<h1 class="sr-only">Blogs</h1>${blogList('../', blogs, null)}<p><a class="btn sm" href="../feed.xml">RSS FEED</a></p>`,
+  main: `${crumbs('../', ['blogs', 'Blogs'])}<h1 class="archive-heading">Blogs</h1>${blogList('../', blogs, null)}<p><a class="btn sm" href="../feed.xml">RSS FEED</a></p>`,
 }));
 for (const [categoryIndex, x] of cats.entries()) {
   write(`blogs/category/${x.slug}/index.html`, page({
     title: `${x.name} | Blogs | ${site.name}`, desc: x.desc || `${x.name} posts by ${site.name}.`, depth: 3, active: 'blogs', archive: true, path: `blogs/category/${x.slug}/`,
-    main: `${crumbs('../../../', ['blogs', 'Blogs'], `No. ${categoryIndex + 1}`)}<h1 class="sr-only">${esc(x.name)}</h1>${x.desc ? `<p class="cat-desc">${esc(x.desc)}</p>` : ''}${blogList('../../../', x.posts, x.slug)}`,
+    main: `${crumbs('../../../', ['blogs', 'Blogs'], `No. ${categoryIndex + 1}`)}<h1 class="archive-heading">${esc(x.name)}</h1>${x.desc ? `<p class="cat-desc">${esc(x.desc)}</p>` : ''}${blogList('../../../', x.posts, x.slug)}`,
   }));
 }
 for (const [index, x] of blogs.entries()) {
