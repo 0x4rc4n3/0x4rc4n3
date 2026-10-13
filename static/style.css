@@ -76,6 +76,12 @@ footer{position:fixed;left:0;right:0;bottom:0;z-index:10;display:grid;grid-templ
 .clock{grid-area:clock;font:var(--size-clock) var(--font-display);text-align:right;white-space:nowrap}
 @media(max-width:900px){
   :root{--size-page-heading:16px;--size-section-heading:16px;--size-name:16px;--size-card-title:13px;--size-visitor:12px;--size-visitor-number:19px;--size-clock:11px;--size-button:16px}
+  nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-areas:"home contact" "works blogs";align-items:stretch;gap:10px;padding:14px}
+  nav .btn{width:100%;margin:0;text-align:center}
+  nav .btn:nth-child(1){grid-area:home}
+  nav .btn:nth-child(2){grid-area:works}
+  nav .btn:nth-child(3){grid-area:blogs}
+  nav .btn:nth-child(4){grid-area:contact}
   .wrap{grid-template-columns:1fr;padding:28px 16px 48px}
   .archive-wrap{padding:18px 15vw 48px}
   main{max-width:none}
@@ -92,8 +98,8 @@ footer{position:fixed;left:0;right:0;bottom:0;z-index:10;display:grid;grid-templ
   :root{--size-body:16px;--size-page-heading:20px;--size-section-heading:20px;--size-name:20px;--size-button:20px;--size-form-label:20px;--size-control:16px;--size-blog-card-title:12px;--size-work-card-title:16px;--size-visitor:11px;--size-visitor-number:13px;--size-clock:10px}
   .bar{padding:12px 10px}
   .bar .btn{font-size:20px;padding:3px 6px}
-  nav{padding:18px 10px 22px}
-  nav .btn{font-size:16px;padding:9px 8px}
+  nav{gap:8px;padding:12px 10px 16px}
+  nav .btn{font-size:16px;padding:9px 4px}
   .wrap{grid-template-columns:1fr;padding:40px 10px 44px}
   .archive-wrap{padding:18px 10px 44px}
   .contact-wrap{max-width:none}
