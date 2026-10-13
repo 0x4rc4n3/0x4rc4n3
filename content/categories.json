@@ -1,0 +1,10 @@
+{
+  "categories": [
+    { "name": "Post-Quantum", "description": "Quantum threats, NIST standards and lattice-based cryptography." },
+    { "name": "Identity", "description": "Credentials, revocation, and the gap between authentication and identity." },
+    { "name": "Security", "description": "Auditing, attacking and hardening systems I built myself." },
+    { "name": "Privacy", "description": "Data minimization and what privacy claims actually guarantee." },
+    { "name": "Engineering", "description": "Building SDKs and verification flows that survive real-world use." },
+    { "name": "Open Source", "description": "Licensing, transparency and honest project maturity." }
+  ]
+}

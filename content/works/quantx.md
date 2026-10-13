@@ -5,8 +5,9 @@ order: 3
 image: /uploads/quantx-card.svg
 stack: Python, cryptography, liboqs
 duration: Architecture and specification
-impact: Algorithm agility designed into the API.
+impact: Algorithm agility designed into the API; no hand-rolled primitives.
 link: https://github.com/0x4rc4n3/QuantX
+imageAlt: QuantX project card
 summary: A crypto-agile hybrid authentication SDK design where swapping algorithms is a constructor choice, not a rewrite.
 ---
 ## The idea

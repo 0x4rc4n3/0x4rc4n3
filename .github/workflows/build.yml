@@ -8,6 +8,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,4 +20,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+      # build.mjs also validates content, internal links/assets and the CSP-safe markup,
+      # and exits non-zero on any problem, so this step doubles as the test suite.
       - run: npm run build

@@ -15,7 +15,11 @@ collections:
         fields:
           - {label: Name, name: name, widget: string}
           - {label: Role, name: role, widget: string}
+          - {label: Site URL (no trailing slash), name: url, widget: string}
+          - {label: Home page title (SEO), name: homeTitle, widget: string}
           - {label: Photo, name: photo, widget: image}
+          - {label: Social share image (1200x630), name: ogImage, widget: image, required: false}
+          - {label: Resume (PDF). Visitors download it as Mudassir-Javed-Resume.pdf. Leave empty to hide the button, name: resume, widget: file, required: false, hint: 'Upload a PDF. The Download Resume button appears on Home and Contact.'}
           - {label: SEO description, name: description, widget: text}
           - {label: About paragraphs, name: about, widget: list, field: {label: Paragraph, name: p, widget: text}}
           - {label: Skills heading, name: skillsTitle, widget: string}
@@ -27,7 +31,13 @@ collections:
           - label: Experience
             name: experience
             widget: list
-            fields: [{label: Title, name: title, widget: string}, {label: Organisation, name: org, widget: string}, {label: Description, name: desc, widget: text}]
+            fields: [{label: Title, name: title, widget: string}, {label: Organisation, name: org, widget: string}, {label: Description, name: desc, widget: text, required: false}]
+          - {label: Education heading, name: educationTitle, widget: string, required: false}
+          - label: Education
+            name: education
+            widget: list
+            required: false
+            fields: [{label: Title, name: title, widget: string}, {label: Organisation, name: org, widget: string}, {label: Description, name: desc, widget: text, required: false}]
           - {label: Awards heading, name: extrasTitle, widget: string}
           - label: Awards, certifications, training
             name: extras
@@ -36,8 +46,20 @@ collections:
           - label: Contact
             name: contact
             widget: object
-            fields: [{label: Email, name: email, widget: string}, {label: GitHub URL, name: github, widget: string}, {label: LinkedIn URL, name: linkedin, widget: string}, {label: Phone, name: phone, widget: string}, {label: Location, name: location, widget: string}]
+            fields: [{label: Email, name: email, widget: string}, {label: GitHub URL, name: github, widget: string}, {label: LinkedIn URL, name: linkedin, widget: string}, {label: Project website URL, name: website, widget: string, required: false}, {label: Phone (leave empty to hide), name: phone, widget: string, required: false}, {label: Location, name: location, widget: string}]
           - {label: Contact form endpoint (optional, e.g. Formspree URL), name: formAction, widget: string, required: false}
+      - name: categories
+        label: Blog Categories
+        file: content/categories.json
+        fields:
+          - label: Categories
+            name: categories
+            widget: list
+            summary: '{{fields.name}}'
+            hint: 'Order here = order of the filter buttons. A category with no posts is hidden.'
+            fields:
+              - {label: Name, name: name, widget: string, hint: 'Must match the Category written in the posts'}
+              - {label: Description, name: description, widget: text, required: false}
   - name: works
     label: Works
     folder: content/works
@@ -53,7 +75,9 @@ collections:
       - {label: Tech stack, name: stack, widget: string, required: false}
       - {label: Duration, name: duration, widget: string, required: false}
       - {label: Impact, name: impact, widget: string, required: false}
-      - {label: Link, name: link, widget: string, required: false}
+      - {label: Source / main link, name: link, widget: string, required: false}
+      - {label: Project website (optional), name: website, widget: string, required: false}
+      - {label: Image alt text (describe the image), name: imageAlt, widget: string, required: false}
       - {label: Summary, name: summary, widget: text}
       - {label: Body, name: body, widget: markdown}
   - name: blogs
@@ -66,7 +90,9 @@ collections:
     fields:
       - {label: Title, name: title, widget: string}
       - {label: Date, name: date, widget: string, hint: 'YYYY-MM-DD'}
-      - {label: Category, name: category, widget: string, hint: 'e.g. Identity, Post-Quantum, Engineering'}
+      - {label: Category, name: category, widget: string, hint: 'Use an existing category exactly (see Site settings > Blog Categories), or type a new name to create one. Each category gets its own page.'}
+      - {label: Post number (order), name: order, widget: number, value_type: int, required: false}
       - {label: Cover image, name: image, widget: image, required: false}
+      - {label: Image alt text (describe the image), name: imageAlt, widget: string, required: false}
       - {label: Summary, name: summary, widget: text}
       - {label: Body, name: body, widget: markdown}

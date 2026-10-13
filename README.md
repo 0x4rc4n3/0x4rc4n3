@@ -97,3 +97,28 @@ This repository also contains the portfolio website source. Vercel builds the st
 - **Local preview build:** run `npm run build`, then serve `dist/` with any static file server
 
 The GitHub Actions workflow only validates that the site builds; Vercel is the deployment host. Keep any CMS access token private and restrict it to this repository with only the required contents permissions.
+
+---
+
+## Site notes (build, SEO, security)
+
+- `npm run build` generates `dist/` **and validates it**: required front matter, internal links/assets, one `<h1>` per page, alt text on every image, and no inline scripts/styles (the CSP forbids them). The GitHub Action runs the same command, so a broken link fails CI.
+- Generated automatically: canonical URLs, Open Graph/Twitter cards, JSON-LD (Person, BlogPosting), `sitemap.xml`, `robots.txt`, `feed.xml` (RSS), `404.html`, `/.well-known/security.txt`.
+- Security headers and CSP live in `vercel.json`. After changing scripts, fonts or embeds, deploy a preview and check the browser console for CSP violations. The `/admin/` CMS has its own, looser CSP and loads a version-pinned, SRI-checked Sveltia CMS build; bump the version and hash together.
+- Optional site.json fields: `formAction` (Formspree URL; otherwise the form opens the visitor's mail app), `contact.phone` (empty = hidden), `contact.website`.
+- Optional project fields: `website` (extra button) and `imageAlt` (alt text for the cover image).
+- Markdown supports headings, lists (ordered and unordered), blockquotes, fenced code blocks, links, images, bold/italic/inline code. Only http(s), mailto, tel and relative URLs are allowed in links.
+
+### Resume download
+Upload the PDF in the CMS (Profile & Site > Profile > Resume), or put it in `static/uploads/` and set `resume` in `content/site.json`. The **DOWNLOAD RESUME** button (Home + Contact) appears automatically and always downloads as `Mudassir-Javed-Resume.pdf`, whatever the uploaded file is called. No file = no button.
+
+### Blog categories and search
+- Category = the `category` field of a post. Each one gets its own page (`/blogs/category/<name>/`) and a filter button with a count. Edit order and descriptions in the CMS under Profile & Site > Blog Categories (`content/categories.json`). A new category needs no setup: type it in a post.
+- Search runs in the browser over `search-index.json` (title, category, summary and full text, rebuilt on every build). `/blogs/?q=word` opens with a search already filled in.
+
+### Real visitor counter (one-time setup)
+The footer number is real: `api/visitors.js` counts each browser once and returns the total from Redis.
+1. Vercel dashboard > your project > **Storage** > create an **Upstash Redis** database (free plan is enough) and connect it to the project. This adds the environment variables automatically (`KV_REST_API_URL` / `KV_REST_API_TOKEN` or `UPSTASH_REDIS_REST_*`).
+2. Redeploy. Until then, or when running locally, the footer shows `----` instead of a made-up number.
+3. To start from a number other than 0, set the key `portfolio:visitors` in the Upstash console.
+Bots (by user-agent) and requests that don't come from the site's own pages are not counted. It's a unique-browser count, not a security-grade analytics tool.

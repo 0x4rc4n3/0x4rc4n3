@@ -1,1 +1,10 @@
-{"name":"portfolio","private":true,"scripts":{"build":"node build.mjs"}}
+{
+  "name": "portfolio",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "build": "node build.mjs",
+    "preview": "node build.mjs && python3 -m http.server 8080 -d dist"
+  }
+}

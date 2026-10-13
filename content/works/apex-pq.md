@@ -5,8 +5,9 @@ order: 2
 image: /uploads/apex-pq-login.png
 stack: ML-DSA-44, liboqs, Chrome MV3, SQLite, Docker
 duration: University prototype
-impact: Demonstrates PQC challenge-response identity flows.
+impact: End-to-end post-quantum login backed by a 3-replica ledger with a 2-of-3 write quorum.
 link: https://github.com/0x4rc4n3/Apex-PQ
+imageAlt: Apex-PQ login screen showing wallet-based post-quantum sign-in
 summary: A post-quantum university identity portal prototype with wallet-based login and a replicated, hash-chained ledger.
 ---
 ## What it does
