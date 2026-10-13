@@ -19,17 +19,14 @@
     tick(); setInterval(tick, 1000);
   }
 
-  // ---- real visitor counter (see api/visitors.js) ----
+  // ---- page-view counter (one increment for every page load; see api/visitors.js) ----
   var vn = document.getElementById('visitor-number');
   if (vn) {
-    var counted = false;
-    try { counted = !!localStorage.getItem('visitor-counted'); } catch (e) {}
-    fetch('/api/visitors/', { method: counted ? 'GET' : 'POST', credentials: 'same-origin', cache: 'no-store' })
+    fetch('/api/visitors/', { method: 'POST', credentials: 'same-origin', cache: 'no-store' })
       .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
       .then(function (d) {
         if (typeof d.count !== 'number') throw 0;
         vn.textContent = String(d.count).padStart(4, '0');
-        if (!counted) { try { localStorage.setItem('visitor-counted', '1'); } catch (e) {} }
       })
       .catch(function () { vn.textContent = '----'; });
   }
