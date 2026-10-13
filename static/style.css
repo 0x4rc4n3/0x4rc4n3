@@ -95,6 +95,7 @@ footer{position:fixed;left:0;right:0;bottom:0;z-index:10;display:grid;grid-templ
   header nav,header nav[hidden]{display:flex;flex-direction:row;align-items:center;gap:10px;padding:12px 18px}
   header nav .btn{padding:7px 8px}
   .archive-heading,.work-title,.blog-title{text-align:center}
+  .wrap,.archive-wrap,.contact-wrap{width:100%;max-width:1440px;padding:40px 32px 60px}
 }
 @media(max-width:560px){
   :root{--size-body:16px;--size-page-heading:20px;--size-section-heading:20px;--size-name:20px;--size-button:20px;--size-form-label:20px;--size-control:16px;--size-blog-card-title:12px;--size-work-card-title:16px;--size-visitor:11px;--size-visitor-number:13px;--size-clock:10px}
@@ -164,18 +165,22 @@ mark{background:#000080;color:#fff;padding:0 2px}
 nav.crumb{flex-direction:row;align-items:baseline}
 
 /* ---- header-wide search: compact control, full-site highlighted results ---- */
-.site-search{position:absolute;right:18px;top:7px;z-index:8}
-.search-toggle{font:11px/1.2 var(--font-display);padding:8px 10px}
-.search-panel{position:absolute;right:0;top:calc(100% + 8px);width:min(440px,calc(100vw - 24px));padding:12px;background:#e1e1e1;border:2px solid var(--ink);box-shadow:4px 4px 0 #888}
+.site-search{position:absolute;right:18px;top:8px;z-index:8}
+.search-toggle{position:relative;display:grid;place-items:center;width:30px;height:30px;padding:0;border:0;background:transparent;box-shadow:none;color:var(--ink);cursor:pointer}
+.search-toggle:hover{background:transparent;opacity:.72}
+.search-glyph{position:relative;display:block;width:14px;height:14px;border:2px solid currentColor;border-radius:50%}
+.search-glyph:after{content:"";position:absolute;width:7px;height:2px;background:currentColor;right:-6px;bottom:-3px;transform:rotate(48deg);transform-origin:left center}
+.search-panel{position:absolute;right:36px;top:2px;width:min(280px,calc(100vw - 76px));padding:0;background:transparent;border:0;box-shadow:none}
 .search-panel[hidden]{display:none}
-.search-panel input{margin:0;font-size:14px}
-.search-status{font:9px/1.5 var(--font-display);margin:10px 0 6px;min-height:14px}
-.search-results{max-height:min(60vh,440px);overflow:auto}
-.site-result{display:flex;flex-direction:column;gap:4px;padding:9px 8px;margin-top:6px;background:#d4d4d4;border:2px solid;border-color:#fff #808080 #808080 #fff;text-decoration:none}
-.site-result:hover,.site-result:focus-visible{background:#e8e8e8}
+.search-panel input{height:27px;margin:0;padding:3px 2px 5px;font:13px/1.4 var(--font-body);border:0;border-bottom:1px solid #777;background:transparent;box-shadow:none;outline-offset:1px}
+.search-panel input:focus{border-bottom:2px solid var(--ink)}
+.search-status{position:absolute;top:calc(100% + 8px);left:0;right:0;z-index:2;font:8px/1.5 var(--font-display);margin:0;padding:7px 9px 0;min-height:20px;background:#e1e1e1}
+.search-results{position:absolute;top:calc(100% + 27px);left:0;right:0;z-index:1;max-height:min(60vh,440px);overflow:auto;background:#e1e1e1;border:1px solid #999;box-shadow:2px 3px 0 #aaa}
+.site-result{display:flex;flex-direction:column;gap:4px;padding:8px 9px;margin:0;background:transparent;border:0;border-bottom:1px solid #c1c1c1;text-decoration:none}
+.site-result:hover,.site-result:focus-visible{background:#ededed}
 .site-result-kind{font:8px/1.3 var(--font-display);color:#555}
-.site-result-title{font:11px/1.45 var(--font-display);overflow-wrap:anywhere}
+.site-result-title{font:10px/1.45 var(--font-display);overflow-wrap:anywhere}
 .site-result-desc{font:12px/1.4 var(--font-body);color:#333}
 .site-result mark{background:#172a6d;color:#fff}
-@media(max-width:900px){.site-search{right:14px;top:10px}.search-toggle{font-size:10px;padding:8px 7px}}
-@media(max-width:560px){.site-search{right:10px;top:12px}.search-toggle{font-size:9px;padding:8px 6px}.search-panel{top:calc(100% + 7px);padding:10px}.site-result-title{font-size:10px}}
+@media(max-width:900px){.site-search{right:14px;top:10px}.search-panel{right:36px}}
+@media(max-width:560px){.site-search{right:10px;top:12px}.search-panel{width:min(245px,calc(100vw - 70px));right:34px}.search-panel input{font-size:12px}.search-results{max-height:min(55vh,380px)}.site-result-title{font-size:9px}}
