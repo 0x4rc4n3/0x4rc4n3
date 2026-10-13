@@ -112,7 +112,7 @@
       searchTimer = setTimeout(function () {
         var q = input.value.trim(), terms = q.toLowerCase().split(/\s+/).filter(Boolean);
         results.textContent = '';
-        if (!terms.length) { searchStatus.textContent = 'TYPE TO SEARCH THE SITE'; return; }
+        if (!terms.length) { searchStatus.textContent = ''; return; }
         searchStatus.textContent = 'SEARCHING…';
         loadSearchIndex().then(function (items) {
           if (id !== requestId) return;
@@ -137,7 +137,7 @@
       }, 100);
     });
     input.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') { input.value = ''; results.textContent = ''; searchStatus.textContent = 'TYPE TO SEARCH THE SITE'; closeSearch(); toggle.focus(); }
+      if (e.key === 'Escape') { input.value = ''; results.textContent = ''; searchStatus.textContent = ''; closeSearch(); toggle.focus(); }
     });
     document.addEventListener('click', function (e) { if (!panel.contains(e.target) && !toggle.contains(e.target)) closeSearch(); });
   }
