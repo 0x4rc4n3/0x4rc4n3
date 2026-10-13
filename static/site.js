@@ -19,9 +19,15 @@
     tick(); setInterval(tick, 1000);
   }
 
-  // ---- page-view counter (one increment for every page load; see api/visitors.js) ----
+  // ---- page-view counter: one atomic Supabase increment for every page load ----
   var vn = document.getElementById('visitor-number');
   if (vn) {
+    var lastCount = '';
+    try {
+      var savedCount = localStorage.getItem('visitor-last-count');
+      if (/^\d+$/.test(savedCount || '')) lastCount = savedCount;
+    } catch (e) {}
+    if (lastCount) vn.textContent = lastCount.padStart(4, '0');
     var counterUrl = 'https://jbjzzvibtgtgzlbchqnm.supabase.co';
     var counterKey = 'sb_publishable_jyc4IQsrNU_G5B63HVzNPg_MPwC7RhD';
     fetch(counterUrl + '/rest/v1/rpc/increment_portfolio_page_views', {
@@ -35,8 +41,13 @@
         var count = Number(d);
         if (!Number.isSafeInteger(count) || count < 0) throw 0;
         vn.textContent = String(count).padStart(4, '0');
+        try { localStorage.setItem('visitor-last-count', String(count)); } catch (e) {}
       })
-      .catch(function () { vn.textContent = '----'; });
+      .catch(function (e) {
+        // Keep the last real count (or the neutral initial 0000) on transient network failures.
+        console.warn('Visitor counter could not refresh:', e);
+        if (lastCount) vn.textContent = lastCount.padStart(4, '0');
+      });
   }
 
   // ---- contact form (mailto fallback) ----

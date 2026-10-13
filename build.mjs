@@ -2,6 +2,7 @@
 // Also validates content and the generated HTML; exits non-zero on any problem (used by CI).
 import fs from 'node:fs';
 import path from 'node:path';
+import { createHash } from 'node:crypto';
 
 const R = (...p) => path.join(process.cwd(), ...p);
 const errors = [];
@@ -23,6 +24,10 @@ const safeUrl = u => {
 const site = JSON.parse(fs.readFileSync(R('content/site.json'), 'utf8'));
 for (const k of ['name', 'role', 'url', 'photo', 'description', 'about', 'contact']) if (!site[k]) fail(`site.json: missing "${k}"`);
 const SITE = String(site.url || '').replace(/\/$/, '');
+const assetVersion = createHash('sha256')
+  .update(fs.readFileSync(R('static/style.css')))
+  .update(fs.readFileSync(R('static/site.js')))
+  .digest('hex').slice(0, 12);
 const abs = p => SITE + (p.startsWith('/') ? p : '/' + p);
 const isExternal = u => /^https?:\/\//i.test(u) && !u.startsWith(SITE);
 const rel = u => (isExternal(u) ? ' rel="noopener noreferrer"' : '');
@@ -146,13 +151,13 @@ function page({ title, desc, depth = 0, base, main, aside, archive = false, acti
 <link rel="icon" type="image/png" sizes="128x128" href="${b}favicon.png"><link rel="apple-touch-icon" sizes="128x128" href="${b}favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Fragment+Mono:ital@0;1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="${b}style.css"><link rel="stylesheet" href="${b}hues.css">${jsonld}</head><body>
+<link rel="stylesheet" href="${b}style.css?v=${assetVersion}"><link rel="stylesheet" href="${b}hues.css">${jsonld}</head><body>
 <a class="skip" href="#main">Skip to content</a>
 <header><div class="bar"><button class="btn" id="mb" aria-expanded="false" aria-controls="nav">MENU</button></div>
 <nav id="nav" aria-label="Main" hidden>${navItem('HOME', b, 'home')}${navItem('WORKS', `${b}works/`, 'works')}${navItem('BLOGS', `${b}blogs/`, 'blogs')}${navItem('CONTACT', `${b}contact/`, 'contact')}</nav></header>
 <div class="wrap${archive ? ' archive-wrap' : ''}${extraWrapClass ? ` ${extraWrapClass}` : ''}"><main id="main" class="${archive ? 'archive' : ''}">${main}</main>${!archive && aside ? `<aside aria-label="More from ${esc(site.name)}">${aside}</aside>` : ''}</div>
 <footer><div class="visitor">VISITOR NO. : <strong id="visitor-number">0000</strong></div><time class="clock" id="clock" aria-label="Current local time"></time></footer>
-<script src="${b}site.js" defer></script></body></html>`;
+<script src="${b}site.js?v=${assetVersion}" defer></script></body></html>`;
   return fix(html, b);
 }
 
