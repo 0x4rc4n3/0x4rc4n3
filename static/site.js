@@ -22,11 +22,19 @@
   // ---- page-view counter (one increment for every page load; see api/visitors.js) ----
   var vn = document.getElementById('visitor-number');
   if (vn) {
-    fetch('/api/visitors/', { method: 'POST', credentials: 'same-origin', cache: 'no-store' })
+    var counterUrl = 'https://jbjzzvibtgtgzlbchqnm.supabase.co';
+    var counterKey = 'sb_publishable_jyc4IQsrNU_G5B63HVzNPg_MPwC7RhD';
+    fetch(counterUrl + '/rest/v1/rpc/increment_portfolio_page_views', {
+      method: 'POST',
+      headers: { apikey: counterKey, Authorization: 'Bearer ' + counterKey, 'Content-Type': 'application/json' },
+      body: '{}',
+      cache: 'no-store'
+    })
       .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
       .then(function (d) {
-        if (typeof d.count !== 'number') throw 0;
-        vn.textContent = String(d.count).padStart(4, '0');
+        var count = Number(d);
+        if (!Number.isSafeInteger(count) || count < 0) throw 0;
+        vn.textContent = String(count).padStart(4, '0');
       })
       .catch(function () { vn.textContent = '----'; });
   }

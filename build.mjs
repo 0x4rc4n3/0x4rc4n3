@@ -215,10 +215,10 @@ write('blogs/index.html', page({
   title: `Blogs | ${site.name}`, desc: `Writing on post-quantum cryptography, identity, revocation and honest security engineering by ${site.name}.`, depth: 1, active: 'blogs', archive: true, path: 'blogs/',
   main: `${crumbs('../', ['blogs', 'Blogs'])}<h1 class="sr-only">Blogs</h1>${blogList('../', blogs, null)}<p><a class="btn sm" href="../feed.xml">RSS FEED</a></p>`,
 }));
-for (const x of cats) {
+for (const [categoryIndex, x] of cats.entries()) {
   write(`blogs/category/${x.slug}/index.html`, page({
     title: `${x.name} | Blogs | ${site.name}`, desc: x.desc || `${x.name} posts by ${site.name}.`, depth: 3, active: 'blogs', archive: true, path: `blogs/category/${x.slug}/`,
-    main: `${crumbs('../../../', ['blogs', 'Blogs'], x.name)}<h1 class="sr-only">${esc(x.name)}</h1>${x.desc ? `<p class="cat-desc">${esc(x.desc)}</p>` : ''}${blogList('../../../', x.posts, x.slug)}`,
+    main: `${crumbs('../../../', ['blogs', 'Blogs'], `No. ${categoryIndex + 1}`)}<h1 class="sr-only">${esc(x.name)}</h1>${x.desc ? `<p class="cat-desc">${esc(x.desc)}</p>` : ''}${blogList('../../../', x.posts, x.slug)}`,
   }));
 }
 for (const [index, x] of blogs.entries()) {

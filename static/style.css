@@ -3,8 +3,8 @@
   --font-display:'Press Start 2P',monospace;
   --font-body:'Fragment Mono','Cascadia Mono',ui-monospace,Menlo,monospace;
   --size-body:15px;--size-page-heading:20px;--size-section-heading:20px;--size-subheading:15px;
-  --size-name:20px;--size-role:14px;--size-breadcrumb:16px;--size-contact-crumb:16px;
-  --size-card-title:16px;--size-blog-card-title:16px;--size-work-card-title:16px;--size-small-card-title:11px;
+  --size-name:20px;--size-role:14px;--size-breadcrumb:clamp(9px,2.7vw,14px);
+  --size-card-title:16px;--size-blog-card-title:14px;--size-work-card-title:16px;--size-small-card-title:11px;
   --size-tag:9px;--size-meta:11px;--size-form-label:16px;--size-control:15px;--size-button:20px;
   --size-thumb:14px;--size-small-thumb:11px;--size-visitor:13px;--size-visitor-number:15px;--size-clock:12px;
 }
@@ -16,11 +16,10 @@ h1{font-size:var(--size-page-heading);line-height:1.3;margin:6px 0 22px}
 h2{font-size:var(--size-section-heading);line-height:1.3;margin:38px 0 14px;font-weight:700}
 h3{font-size:var(--size-subheading);margin:28px 0 8px;line-height:1.4}
 h2.gap{margin-top:56px}
-.crumb{display:flex;align-items:baseline;flex-wrap:nowrap;gap:9px;margin:0 0 22px;max-width:100%;overflow-x:auto;overflow-y:hidden;white-space:nowrap;scrollbar-width:none;-webkit-overflow-scrolling:touch;font-family:var(--font-display);font-size:var(--size-breadcrumb);line-height:1.5}
+.crumb{display:flex;align-items:baseline;flex-wrap:nowrap;gap:clamp(3px,1vw,8px);margin:0 0 22px;max-width:100%;overflow-x:auto;overflow-y:hidden;white-space:nowrap;scrollbar-width:none;-webkit-overflow-scrolling:touch;font-family:var(--font-display);font-size:var(--size-breadcrumb);line-height:1.5}
 .crumb::-webkit-scrollbar{display:none}
 .crumb a{text-decoration:none}
 .crumb-current{overflow-wrap:anywhere}
-.contact-crumb{font-size:var(--size-breadcrumb)}
 header{background:#e1e1e1;border-bottom:2px solid var(--ink);position:sticky;top:0;z-index:5}
 .bar{display:flex;justify-content:flex-start;padding:12px 14px}
 nav{display:flex;flex-direction:column;align-items:flex-start;gap:12px;padding:18px 14px 22px}
@@ -83,14 +82,14 @@ footer{position:fixed;left:0;right:0;bottom:0;z-index:10;display:grid;grid-templ
   .photo{width:105px;height:158px}
 }
 @media(min-width:901px){
-  :root{--size-body:17px;--size-page-heading:24px;--size-section-heading:24px;--size-subheading:18px;--size-name:24px;--size-role:16px;--size-breadcrumb:18px;--size-contact-crumb:18px;--size-card-title:18px;--size-blog-card-title:18px;--size-work-card-title:18px;--size-small-card-title:13px;--size-tag:11px;--size-meta:13px;--size-form-label:18px;--size-control:17px;--size-button:22px}
+  :root{--size-body:17px;--size-page-heading:24px;--size-section-heading:24px;--size-subheading:18px;--size-name:24px;--size-role:16px;--size-card-title:18px;--size-blog-card-title:15px;--size-work-card-title:18px;--size-small-card-title:13px;--size-tag:11px;--size-meta:13px;--size-form-label:18px;--size-control:17px;--size-button:22px}
   .bar{display:none}
   .photo{width:180px;height:270px}
   nav,nav[hidden]{display:flex;flex-direction:row;align-items:center;gap:10px;padding:12px 18px}
   nav .btn{padding:7px 8px}
 }
 @media(max-width:560px){
-  :root{--size-body:16px;--size-page-heading:20px;--size-section-heading:20px;--size-name:20px;--size-button:20px;--size-form-label:20px;--size-control:16px;--size-blog-card-title:18px;--size-work-card-title:16px;--size-visitor:11px;--size-visitor-number:13px;--size-clock:10px}
+  :root{--size-body:16px;--size-page-heading:20px;--size-section-heading:20px;--size-name:20px;--size-button:20px;--size-form-label:20px;--size-control:16px;--size-blog-card-title:12px;--size-work-card-title:16px;--size-visitor:11px;--size-visitor-number:13px;--size-clock:10px}
   .bar{padding:12px 10px}
   .bar .btn{font-size:20px;padding:3px 6px}
   nav{padding:18px 10px 22px}
@@ -105,11 +104,10 @@ footer{position:fixed;left:0;right:0;bottom:0;z-index:10;display:grid;grid-templ
   .role{margin-top:4px}
   h1,h2{line-height:1.35}
   h2{margin-top:38px;margin-bottom:8px}
-  .crumb{gap:5px;margin-bottom:18px;font-size:clamp(8px,2.7vw,11px);line-height:1.5}
-  .contact-crumb{font-size:20px;gap:12px;margin-bottom:24px}
+  .crumb{margin-bottom:18px;line-height:1.5}
   .archive .card{width:100%;min-width:0;overflow:hidden;gap:10px;padding:10px}
   .archive .ct{min-width:0;overflow:hidden}
-  .archive-wrap .crumb{font-size:22px;gap:14px;margin-bottom:32px}
+  .archive-wrap .crumb{margin-bottom:24px}
   .archive .blog-card .thumb{width:80px;height:80px}
   .archive .blog-card .ctitle{line-height:1.3}
   .archive .blog-card .excerpt{font-size:14px;line-height:1.35}

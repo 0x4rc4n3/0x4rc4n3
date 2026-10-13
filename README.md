@@ -116,9 +116,5 @@ Upload the PDF in the CMS (Profile & Site > Profile > Resume), or put it in `sta
 - Category = the `category` field of a post. Each one gets its own page (`/blogs/category/<name>/`) and a filter button with a count. Edit order and descriptions in the CMS under Profile & Site > Blog Categories (`content/categories.json`). A new category needs no setup: type it in a post.
 - Search runs in the browser over `search-index.json` (title, category, summary and full text, rebuilt on every build). `/blogs/?q=word` opens with a search already filled in.
 
-### Page-view counter (one-time setup)
-The footer number is real: `api/visitors.js` increments Redis on every page load where the shared site script runs, then displays the returned total. Reloading or opening another page counts another view; this is a page-view counter, not a unique-visitor metric.
-1. Vercel dashboard > your project > **Storage** > create an **Upstash Redis** database (free plan is enough) and connect it to the project. This adds the environment variables automatically (`KV_REST_API_URL` / `KV_REST_API_TOKEN` or `UPSTASH_REDIS_REST_*`).
-2. Redeploy. Until then, or when running locally, the footer shows `----` instead of a made-up number. The counter requires both Redis environment variables and the deployed Vercel function.
-3. To start from a number other than 0, set the key `portfolio:visitors` in the Upstash console.
-Every POST increments the total, including reloads and automated requests. It's a simple page-view total, not security-grade analytics, and can be inflated by bots or direct API requests.
+### Page-view counter
+The footer counter calls the Supabase RPC `increment_portfolio_page_views()` once on every page load. The total is stored in a dedicated `portfolio_page_view_counter` table with row-level security enabled and no direct public table access; the public function only performs an atomic increment and returns the new total. Reloads and automated requests count as page views, so this is a simple display counter, not security-grade analytics. The site uses Supabase's public publishable key; never put a service-role key in browser code.
