@@ -31,7 +31,7 @@ nav .btn{padding:9px 8px}
 .btn:active{border-color:var(--lo) var(--hi) var(--hi) var(--lo)}
 .btn.sm{font-size:12px;padding:2px 6px;margin-top:8px}
 .btn:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #0099ff;outline-offset:2px}
-.wrap{flex:1;min-width:0;display:grid;grid-template-columns:minmax(0,1fr) 450px;gap:35px;max-width:1280px;margin:0 auto;padding:40px 30px 60px 20px}
+.wrap{flex:1;min-width:0;display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:18px;max-width:1240px;margin:0 auto;padding:40px 18px 60px}
 .archive-wrap{display:block;width:100%;min-width:0;max-width:900px;padding:22px 24px 60px}
 .archive{min-width:0;max-width:none}
 main{max-width:740px}
@@ -78,6 +78,11 @@ footer{position:fixed;left:0;right:0;bottom:0;z-index:10;display:grid;grid-templ
   .archive-wrap{padding:18px 15vw 48px}
   main{max-width:none}
   .photo{width:105px;height:158px}
+}
+@media(min-width:901px){
+  .bar{display:none}
+  nav,nav[hidden]{display:flex;flex-direction:row;align-items:center;gap:10px;padding:12px 18px}
+  nav .btn{padding:7px 8px}
 }
 @media(max-width:560px){
   :root{--size-body:16px;--size-page-heading:20px;--size-section-heading:20px;--size-name:20px;--size-button:20px;--size-form-label:20px;--size-control:16px;--size-blog-card-title:18px;--size-work-card-title:16px;--size-visitor:11px;--size-visitor-number:13px;--size-clock:10px}

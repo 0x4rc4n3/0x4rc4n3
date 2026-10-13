@@ -77,7 +77,7 @@ write('index.html', page({ title: `${site.name} | ${site.role} Portfolio`, depth
 // Works
 write('works/index.html', page({ title: `Works | ${site.name}`, depth: 1, archive: true, main: `${crumbs('../', ['works', 'Works'])}${works.map(w => card(w, 'works', '../', false, true)).join('')}` }));
 for (const w of works) write(`works/${w.slug}/index.html`, page({ title: `${w.title} | ${site.name}`, desc: w.summary, depth: 2, aside: side('../../', true, false), main:
-`${crumbs('../../', ['works', 'Works'], w.title, `../../works/${w.slug}/`)}<div class="meta">${[['TECH STACK', w.stack], ['PROJECT TYPE', w.type], ['DURATION', w.duration], ['IMPACT', w.impact]].filter(x => x[1]).map(x => `<p><b>${x[0]} :</b> <span>${esc(x[1])}</span></p>`).join('')}</div>
+`${crumbs('../../', ['works', 'Works'], w.title, `../../works/${w.slug}/`)}<h1 class="work-title">${esc(w.title)}</h1><div class="meta">${[['TECH STACK', w.stack], ['PROJECT TYPE', w.type], ['DURATION', w.duration], ['IMPACT', w.impact]].filter(x => x[1]).map(x => `<p><b>${x[0]} :</b> <span>${esc(x[1])}</span></p>`).join('')}</div>
 ${w.link ? `<a class="btn" href="${esc(w.link)}">VISIT SITE</a>` : ''}${w.image ? `<img class="cover" src="${esc(w.image)}" alt="">` : ''}
 <p class="lead">${esc(w.summary)}</p><div class="prose">${md(w.body)}</div>` }));
 
