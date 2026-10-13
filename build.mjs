@@ -50,7 +50,7 @@ function page({ title, desc, depth, main, aside, archive = false }) {
   const b = '../'.repeat(depth) || './';
   const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(title)}</title><meta name="description" content="${esc(desc || site.description)}">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🛡️%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/png" sizes="128x128" href="${b}favicon.png"><link rel="apple-touch-icon" sizes="128x128" href="${b}favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Fragment+Mono:ital@0;1&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${b}style.css"></head><body>
