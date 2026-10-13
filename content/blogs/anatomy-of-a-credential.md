@@ -3,6 +3,7 @@ title: "The Anatomy of a Credential in ScatterID"
 date: 2026-08-10
 summary: "From canonicalization to salting, SHA3-256 commitments, ML-DSA-65 signatures, and ledger anchoring: how verification works without exposing raw identity data."
 order: 2
+category: "Identity"
 ---
 A credential in ScatterID isn't a file that gets copied around and trusted at face value — it's the output of a specific process designed so that verification never requires the verifier, or anyone else, to see more than they need to.
 

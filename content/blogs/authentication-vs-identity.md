@@ -3,6 +3,7 @@ title: "Authentication Isn't Identity"
 date: 2026-09-06
 summary: "A valid signature proves a key was used correctly. It does not prove who was holding it."
 order: 11
+category: "Identity"
 ---
 It's an easy sentence to say too quickly: "the signature checks out, so it's them." Cryptography never claimed that. It claimed something much narrower, and the gap between those two claims is where a surprising number of identity systems quietly break.
 

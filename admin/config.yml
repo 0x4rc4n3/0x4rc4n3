@@ -66,6 +66,7 @@ collections:
     fields:
       - {label: Title, name: title, widget: string}
       - {label: Date, name: date, widget: string, hint: 'YYYY-MM-DD'}
+      - {label: Category, name: category, widget: string, hint: 'e.g. Identity, Post-Quantum, Engineering'}
       - {label: Cover image, name: image, widget: image, required: false}
       - {label: Summary, name: summary, widget: text}
       - {label: Body, name: body, widget: markdown}

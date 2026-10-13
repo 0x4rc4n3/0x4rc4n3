@@ -3,6 +3,7 @@ title: "Building a TypeScript SDK on Top of a Python-Heavy Cryptographic Core"
 date: 2026-08-28
 summary: "Ensuring byte-for-byte cryptographic parity across Node.js and Python implementations of RFC 8785 canonicalization and signature verification."
 order: 8
+category: "Engineering"
 ---
 Most of ScatterID's cryptographic logic — canonicalization, hashing, signature handling — has natural, mature library support in Python. The client-facing SDK needed to be TypeScript, because that's where identity verification actually gets integrated: web apps, browser extensions, Node.js backends. That split created a specific, unglamorous engineering problem: making sure two implementations of the same cryptographic logic, in two different language ecosystems, always agree.
 
