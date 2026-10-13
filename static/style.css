@@ -95,7 +95,7 @@ footer{position:fixed;left:0;right:0;bottom:0;z-index:10;display:grid;grid-templ
   header nav,header nav[hidden]{display:flex;flex-direction:row;align-items:center;gap:10px;padding:12px 18px}
   header nav .btn{padding:7px 8px}
   .archive-heading,.work-title,.blog-title{text-align:center}
-  .wrap,.archive-wrap,.contact-wrap{width:100%;max-width:1440px;padding:40px 96px 60px}
+  .wrap,.archive-wrap,.contact-wrap{width:100%;max-width:1440px;padding:40px 32px 60px}
 }
 @media(max-width:560px){
   :root{--size-body:16px;--size-page-heading:20px;--size-section-heading:20px;--size-name:20px;--size-button:20px;--size-form-label:20px;--size-control:16px;--size-blog-card-title:12px;--size-work-card-title:16px;--size-visitor:11px;--size-visitor-number:13px;--size-clock:10px}
@@ -180,7 +180,7 @@ nav.crumb{flex-direction:row;align-items:baseline}
 .search-panel input:focus{border-bottom:1px solid var(--ink)}
 .search-panel input:focus-visible{outline:1px solid var(--ink);outline-offset:2px}
 .search-panel input::-webkit-search-cancel-button{-webkit-appearance:none;appearance:none}
-.site-search-view{flex:1;min-width:0;width:100%;max-width:1440px;margin:0 auto;padding:40px 96px 60px}
+.site-search-view{flex:1;min-width:0;width:100%;max-width:1440px;margin:0 auto;padding:40px 32px 60px}
 .site-search-view[hidden],#site-content[hidden]{display:none!important}
 .site-search-view .search-status{font:10px/1.6 var(--font-display);margin:0 0 14px;min-height:0}
 .site-search-view .search-results{display:flex;flex-direction:column;width:100%;}
