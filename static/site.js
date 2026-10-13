@@ -71,90 +71,75 @@
     });
   }
 
-  // ---- blog search (index built by build.mjs -> search-index.json) ----
-  var box = document.getElementById('bs'), list = document.getElementById('bl'), status = document.getElementById('bs-status');
-  if (box && list) {
-    var cards = Array.prototype.slice.call(list.querySelectorAll('[data-slug]'));
-    cards.forEach(function (c) {
-      var t = c.querySelector('.ctitle'), x = c.querySelector('.excerpt');
-      c._t = t; c._x = x; c._tt = t ? t.textContent : ''; c._xt = x ? x.textContent : '';
-    });
-    var index = null, loading = null, timer = null;
-
-    var domIndex = function () {
-      return cards.map(function (c) {
-        var tag = c.querySelector('.tag');
-        return { s: c.dataset.slug, t: c._tt, c: tag ? tag.textContent : '', d: c._xt, b: '' };
-      });
+  // ---- whole-site search (projects + articles) ----
+  var toggle = document.getElementById('search-toggle');
+  var panel = document.getElementById('site-search-panel');
+  var input = document.getElementById('site-search-input');
+  var results = document.getElementById('site-search-results');
+  var searchStatus = document.getElementById('site-search-status');
+  if (toggle && panel && input && results && searchStatus) {
+    var searchIndex = null, searchLoad = null, searchTimer = null, requestId = 0;
+    var loadSearchIndex = function () {
+      if (searchIndex) return Promise.resolve(searchIndex);
+      if (!searchLoad) searchLoad = fetch(input.dataset.index, { credentials: 'same-origin' })
+        .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error('index unavailable')); })
+        .then(function (data) { searchIndex = data; return data; });
+      return searchLoad;
     };
-    var load = function () {
-      if (index) return Promise.resolve(index);
-      if (!loading) {
-        loading = fetch(box.dataset.index, { credentials: 'same-origin' })
-          .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
-          .catch(function () { return domIndex(); })
-          .then(function (j) { index = j; return j; });
-      }
-      return loading;
-    };
-    var esc = function (s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); };
-    var mark = function (el, text, re) {
-      if (!el) return;
+    var highlight = function (el, text, terms) {
       el.textContent = '';
-      if (!re) { el.textContent = text; return; }
-      text.split(re).forEach(function (part, i) {
-        if (i % 2) { var m = document.createElement('mark'); m.textContent = part; el.appendChild(m); }
+      if (!terms.length) { el.textContent = text; return; }
+      var rx = new RegExp('(' + terms.map(function (x) { return x.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }).join('|') + ')', 'gi');
+      text.split(rx).forEach(function (part, i) {
+        if (i % 2) { var mark = document.createElement('mark'); mark.textContent = part; el.appendChild(mark); }
         else if (part) el.appendChild(document.createTextNode(part));
       });
     };
-    var count = function (hay, tok) { var n = 0, i = hay.indexOf(tok); while (i !== -1 && n < 5) { n++; i = hay.indexOf(tok, i + tok.length); } return n; };
-
-    var reset = function () {
-      cards.forEach(function (c) { c.hidden = false; mark(c._t, c._tt); mark(c._x, c._xt); list.appendChild(c); });
-      status.textContent = '';
+    var closeSearch = function () {
+      panel.hidden = true; toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', 'Open site search');
     };
-
-    var run = function () {
-      var q = box.value.toLowerCase().trim();
-      if (!q) { reset(); return; }
-      var toks = q.split(/\s+/).filter(Boolean);
-      var re = new RegExp('(' + toks.map(esc).join('|') + ')', 'gi');
-      load().then(function (idx) {
-        if (box.value.toLowerCase().trim() !== q) return; // a newer query is already running
-        var hits = {};
-        idx.forEach(function (e) {
-          var title = e.t.toLowerCase(), cat = e.c.toLowerCase(), sum = e.d.toLowerCase(), body = e.b.toLowerCase(), score = 0;
-          for (var i = 0; i < toks.length; i++) {
-            var k = toks[i], a = title.indexOf(k) !== -1, b = cat.indexOf(k) !== -1, c = sum.indexOf(k) !== -1, d = count(body, k);
-            if (!a && !b && !c && !d) return;
-            score += (a ? 10 : 0) + (b ? 4 : 0) + (c ? 3 : 0) + d;
-          }
-          var snippet = '';
-          if (e.b && title.indexOf(toks[0]) === -1 && sum.indexOf(toks[0]) === -1) {
-            var at = body.indexOf(toks[0]), from = Math.max(0, at - 50);
-            snippet = (from ? '\u2026' : '') + e.b.slice(from, at + 90) + '\u2026';
-          }
-          hits[e.s] = { score: score, snippet: snippet };
-        });
-        var shown = cards.filter(function (c) { return hits[c.dataset.slug]; })
-          .sort(function (a, b) { return hits[b.dataset.slug].score - hits[a.dataset.slug].score; });
-        cards.forEach(function (c) { c.hidden = !hits[c.dataset.slug]; });
-        shown.forEach(function (c) {
-          var h = hits[c.dataset.slug];
-          mark(c._t, c._tt, re);
-          mark(c._x, h.snippet || c._xt, re);
-          list.appendChild(c);
-        });
-        status.textContent = shown.length
-          ? shown.length + (shown.length === 1 ? ' RESULT' : ' RESULTS')
-          : 'NO MATCHES. TRY ANOTHER WORD.';
-      });
-    };
-
-    box.addEventListener('focus', load);
-    box.addEventListener('input', function () { clearTimeout(timer); timer = setTimeout(run, 120); });
-    box.addEventListener('keydown', function (e) { if (e.key === 'Escape') { box.value = ''; run(); } });
-    var pre = new URLSearchParams(location.search).get('q');
-    if (pre) { box.value = pre; run(); }
+    toggle.addEventListener('click', function () {
+      var opening = panel.hidden;
+      panel.hidden = !opening;
+      toggle.setAttribute('aria-expanded', String(opening));
+      toggle.setAttribute('aria-label', opening ? 'Close site search' : 'Open site search');
+      if (opening) input.focus();
+    });
+    input.addEventListener('input', function () {
+      clearTimeout(searchTimer);
+      var id = ++requestId;
+      searchTimer = setTimeout(function () {
+        var q = input.value.trim(), terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+        results.textContent = '';
+        if (!terms.length) { searchStatus.textContent = 'TYPE TO SEARCH THE SITE'; return; }
+        searchStatus.textContent = 'SEARCHING…';
+        loadSearchIndex().then(function (items) {
+          if (id !== requestId) return;
+          var matches = items.map(function (item) {
+            var fields = [item.t, item.c, item.d, item.b].map(function (x) { return String(x || '').toLowerCase(); });
+            var all = terms.every(function (term) { return fields.some(function (field) { return field.indexOf(term) !== -1; }); });
+            if (!all) return null;
+            var score = terms.reduce(function (n, term) { return n + (fields[0].indexOf(term) >= 0 ? 8 : 0) + (fields[1].indexOf(term) >= 0 ? 4 : 0) + (fields[2].indexOf(term) >= 0 ? 2 : 0) + (fields[3].indexOf(term) >= 0 ? 1 : 0); }, 0);
+            var at = item.b ? Math.max(0, item.b.toLowerCase().indexOf(terms[0])) : -1;
+            var snippet = at >= 0 ? (at > 42 ? '…' : '') + item.b.slice(Math.max(0, at - 42), at + 118) + '…' : item.d;
+            return { item: item, score: score, snippet: snippet };
+          }).filter(Boolean).sort(function (a, b) { return b.score - a.score || a.item.t.localeCompare(b.item.t); }).slice(0, 12);
+          matches.forEach(function (hit) {
+            var a = document.createElement('a'); a.className = 'site-result'; a.href = hit.item.u;
+            var kind = document.createElement('span'); kind.className = 'site-result-kind'; kind.textContent = hit.item.k;
+            var title = document.createElement('span'); title.className = 'site-result-title'; highlight(title, hit.item.t, terms);
+            var desc = document.createElement('span'); desc.className = 'site-result-desc'; highlight(desc, hit.snippet, terms);
+            a.appendChild(kind); a.appendChild(title); a.appendChild(desc); results.appendChild(a);
+          });
+          searchStatus.textContent = matches.length ? matches.length + (matches.length === 1 ? ' RESULT' : ' RESULTS') : 'NO MATCHES. TRY ANOTHER WORD.';
+        }).catch(function () { if (id === requestId) searchStatus.textContent = 'SEARCH IS TEMPORARILY UNAVAILABLE'; });
+      }, 100);
+    });
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { input.value = ''; results.textContent = ''; searchStatus.textContent = 'TYPE TO SEARCH THE SITE'; closeSearch(); toggle.focus(); }
+    });
+    document.addEventListener('click', function (e) { if (!panel.contains(e.target) && !toggle.contains(e.target)) closeSearch(); });
   }
+
 })();

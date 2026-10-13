@@ -5,6 +5,8 @@ summary: "A valid signature proves a key was used correctly. It does not prove w
 order: 11
 category: "Identity"
 ---
+image: /uploads/blog-identity.svg
+imageAlt: Identity & credentials editorial illustration
 It's an easy sentence to say too quickly: "the signature checks out, so it's them." Cryptography never claimed that. It claimed something much narrower, and the gap between those two claims is where a surprising number of identity systems quietly break.
 
 Authentication, in the cryptographic sense, verifies possession of a private key. When a signature validates, it proves that whoever holds that specific key produced that specific signature over that specific message. That's the entire claim. It says nothing about whose hand was on the keyboard, whether that person is a real, unique human, or whether they still control that key today versus six months ago when it was issued.

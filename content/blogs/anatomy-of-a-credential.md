@@ -5,6 +5,8 @@ summary: "From canonicalization to salting, SHA3-256 commitments, ML-DSA-65 sign
 order: 2
 category: "Identity"
 ---
+image: /uploads/blog-identity.svg
+imageAlt: Identity & credentials editorial illustration
 A credential in ScatterID isn't a file that gets copied around and trusted at face value — it's the output of a specific process designed so that verification never requires the verifier, or anyone else, to see more than they need to.
 
 Here's the flow, from issuance to verification, at a high level:

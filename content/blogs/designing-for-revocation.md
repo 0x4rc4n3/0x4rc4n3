@@ -5,6 +5,8 @@ summary: "How ScatterID avoids a centralized database by anchoring revocation re
 order: 4
 category: "Identity"
 ---
+image: /uploads/blog-identity.svg
+imageAlt: Identity & credentials editorial illustration
 Most identity systems solve revocation the easy way: a central database with a status column. Need to revoke a credential? Flip a flag. It works, but it reintroduces the exact thing a decentralized credential system is supposed to avoid — a single authoritative store that every verifier has to trust and query.
 
 For ScatterID, the constraint was: revocation has to be checkable without requiring a live, centrally-controlled endpoint every verifier depends on.

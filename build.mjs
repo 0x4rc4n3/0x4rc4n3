@@ -154,7 +154,7 @@ function page({ title, desc, depth = 0, base, main, aside, archive = false, acti
 <link rel="stylesheet" href="${b}style.css?v=${assetVersion}"><link rel="stylesheet" href="${b}hues.css">${jsonld}</head><body>
 <a class="skip" href="#main">Skip to content</a>
 <header><div class="bar"><button class="btn" id="mb" aria-expanded="false" aria-controls="nav">MENU</button></div>
-<nav id="nav" aria-label="Main" hidden>${navItem('HOME', b, 'home')}${navItem('WORKS', `${b}works/`, 'works')}${navItem('BLOGS', `${b}blogs/`, 'blogs')}${navItem('CONTACT', `${b}contact/`, 'contact')}</nav></header>
+<nav id="nav" aria-label="Main" hidden>${navItem('HOME', b, 'home')}${navItem('WORKS', `${b}works/`, 'works')}${navItem('BLOGS', `${b}blogs/`, 'blogs')}${navItem('CONTACT', `${b}contact/`, 'contact')}</nav><div class="site-search"><button class="btn search-toggle" id="search-toggle" type="button" aria-expanded="false" aria-controls="site-search-panel" aria-label="Open site search">SEARCH</button><div class="search-panel" id="site-search-panel" hidden><label class="sr-only" for="site-search-input">Search the whole website</label><input id="site-search-input" type="search" placeholder="Search projects and articles…" autocomplete="off" spellcheck="false" data-index="${b}search-index.json" aria-controls="site-search-results"><p class="search-status" id="site-search-status" role="status" aria-live="polite">TYPE TO SEARCH THE SITE</p><div class="search-results" id="site-search-results"></div></div></div></header>
 <div class="wrap${archive ? ' archive-wrap' : ''}${extraWrapClass ? ` ${extraWrapClass}` : ''}"><main id="main" class="${archive ? 'archive' : ''}">${main}</main>${!archive && aside ? `<aside aria-label="More from ${esc(site.name)}">${aside}</aside>` : ''}</div>
 <footer><div class="visitor">VISITOR NO. : <strong id="visitor-number">0000</strong></div><time class="clock" id="clock" aria-label="Current local time"></time></footer>
 <script src="${b}site.js?v=${assetVersion}" defer></script></body></html>`;
@@ -215,8 +215,7 @@ for (const w of works) {
 
 // ---------- Blogs ----------
 const chipBar = (b, active) => `<div class="chips" role="navigation" aria-label="Blog categories"><a class="btn sm chip${active == null ? ' active' : ''}" href="${b}blogs/"${active == null ? ' aria-current="page"' : ''}>ALL (${blogs.length})</a>${cats.map(x => `<a class="btn sm chip${active === x.slug ? ' active' : ''}" href="${b}blogs/category/${x.slug}/"${active === x.slug ? ' aria-current="page"' : ''}>${esc(x.name.toUpperCase())} (${x.posts.length})</a>`).join('')}</div>`;
-const finder = b => `<div class="finder" role="search"><label class="finder-label" for="bs">Search blogs</label><input id="bs" type="search" placeholder="Try: ML-DSA, revocation, lattice" autocomplete="off" spellcheck="false" data-index="${b}search-index.json" aria-controls="bl"></div>`;
-const blogList = (b, items, active) => `${finder(b)}${chipBar(b, active)}<p class="finder-status" id="bs-status" role="status" aria-live="polite"></p><div id="bl">${items.map(x => card(x, 'blogs', b, true, true)).join('') || '<p>No posts yet.</p>'}</div>`;
+const blogList = (b, items, active) => `${chipBar(b, active)}<div>${items.map(x => card(x, 'blogs', b, true, true)).join('') || '<p>No posts yet.</p>'}</div>`;
 write('blogs/index.html', page({
   title: `Blogs | ${site.name}`, desc: `Writing on post-quantum cryptography, identity, revocation and honest security engineering by ${site.name}.`, depth: 1, active: 'blogs', archive: true, path: 'blogs/',
   main: `${crumbs('../', ['blogs', 'Blogs'])}<h1 class="archive-heading">Blogs</h1>${blogList('../', blogs, null)}<p><a class="btn sm" href="../feed.xml">RSS FEED</a></p>`,
@@ -273,7 +272,10 @@ const urls = [['', buildISO.slice(0, 10)], ['works/', buildISO.slice(0, 10)], ['
   ...works.map(w => [`works/${w.slug}/`, buildISO.slice(0, 10)]), ...blogs.map(x => [`blogs/${x.slug}/`, x.date]), ...cats.map(x => [`blogs/category/${x.slug}/`, x.posts[0].date])];
 fs.writeFileSync(dist('sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(([u, m]) => `  <url><loc>${xml(abs('/' + u))}</loc><lastmod>${m}</lastmod></url>`).join('\n')}\n</urlset>\n`);
 const plain = s => s.replace(/!\[[^\]]*\]\([^)]*\)/g, ' ').replace(/\[([^\]]+)\]\([^)]*\)/g, '$1').replace(/```\w*/g, ' ').replace(/[`*#>]/g, '').replace(/^\s*(?:[-]|\d+[.)])\s+/gm, ' ').replace(/\s+/g, ' ').trim();
-fs.writeFileSync(dist('search-index.json'), JSON.stringify(blogs.map(x => ({ s: x.slug, t: x.title, c: x.category || '', d: x.summary, b: plain(x.body) }))));
+fs.writeFileSync(dist('search-index.json'), JSON.stringify([
+  ...works.map(x => ({ k: 'WORK', s: x.slug, t: x.title, c: x.type || 'PROJECT', d: x.summary, b: plain(x.body), u: `/works/${x.slug}/` })),
+  ...blogs.map(x => ({ k: 'BLOG', s: x.slug, t: x.title, c: x.category || '', d: x.summary, b: plain(x.body), u: `/blogs/${x.slug}/` }))
+]));
 fs.writeFileSync(dist('robots.txt'), `User-agent: *\nAllow: /\nDisallow: /admin/\n\nSitemap: ${SITE}/sitemap.xml\n`);
 
 const rfc822 = d => new Date(d + 'T00:00:00Z').toUTCString();

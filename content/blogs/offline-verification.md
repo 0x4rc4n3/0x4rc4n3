@@ -5,6 +5,8 @@ summary: "Why verifying credentials without requiring live round-trips to centra
 order: 5
 category: "Engineering"
 ---
+image: /uploads/blog-engineering.svg
+imageAlt: Security engineering & resilient systems editorial illustration
 It's easy to assume every verification check can just hit a live server. In practice, that assumption breaks constantly — a hospital intake desk with unreliable connectivity, a border checkpoint, a rural clinic, an airport gate agent working through a network outage. If verifying a credential requires a live round-trip to a central service, the system fails exactly when it's needed most.
 
 ScatterID includes offline verifiers built in both Node.js and Python, with zero external runtime dependencies and parity-tested against each other, so the verification logic behaves identically regardless of which environment it runs in. Given a credential, its salt, and a locally cached copy of the relevant ledger state, verification can run entirely on-device — no network call required at the moment of verification.

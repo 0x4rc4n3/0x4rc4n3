@@ -5,6 +5,8 @@ summary: "Building verification flows across healthcare, aviation, finance, and 
 order: 10
 category: "Engineering"
 ---
+image: /uploads/blog-engineering.svg
+imageAlt: Security engineering & resilient systems editorial illustration
 When you design an identity verification system in the abstract, it's easy to assume "verification" means roughly the same thing everywhere — check a credential, confirm it's valid, move on. Building sample flows for ScatterID's playground across healthcare, aviation, finance, and KYC use cases made it obvious how much that assumption doesn't hold.
 
 Different domains disclose different amounts by necessity. A KYC flow typically needs a fuller identity picture — name, date of birth, sometimes address — because regulatory requirements demand it. A healthcare access scenario might only need to confirm a role or credential ("licensed practitioner") without needing most identity attributes at all. Designing one system to serve both means the disclosure model can't be all-or-nothing; it has to support proving exactly the attribute a given context actually requires, nothing more by default.

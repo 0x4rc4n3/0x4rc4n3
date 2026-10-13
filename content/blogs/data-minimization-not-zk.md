@@ -5,6 +5,8 @@ summary: "Why ScatterID uses salted hash commitments and minimal-claim presentat
 order: 9
 category: "Privacy"
 ---
+image: /uploads/blog-privacy.svg
+imageAlt: Privacy, commitments & minimal disclosure editorial illustration
 "Zero-knowledge" gets attached to a lot of identity and privacy projects loosely, often as shorthand for "privacy-preserving" in general. It has a precise cryptographic meaning: a zero-knowledge proof lets one party prove a statement is true without revealing anything beyond the truth of that statement — including proving a property about hidden data (like "I'm over 18") without revealing the data itself (like a birthdate).
 
 ScatterID doesn't implement formal zero-knowledge proofs or per-attribute commitment proofs. It uses salted hash commitments and minimal-claim presentation instead — a related but meaningfully different technique, and one that's worth being precise about rather than rounding up to the more fashionable term.

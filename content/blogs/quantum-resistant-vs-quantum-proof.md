@@ -5,6 +5,8 @@ summary: "NIST's finalized post-quantum standards are the strongest cryptographi
 order: 12
 category: "Post-Quantum"
 ---
+image: /uploads/blog-quantum.svg
+imageAlt: Post-quantum cryptography & lattice security editorial illustration
 Somewhere between the NIST announcement and the marketing slide, "post-quantum" quietly turned into "unbreakable." It's an easy mistake to make. NIST spent eight years testing candidates, published three finalized standards, and the message that reached most engineering teams was: quantum computers solved, move on. That's not what actually happened.
 
 What NIST finalized is three specific algorithms, each covering a specific job. FIPS 203 standardizes ML-KEM (built on the lattice problem behind CRYSTALS-Kyber) for key encapsulation — two parties agreeing on a shared secret over an untrusted channel. FIPS 204 standardizes ML-DSA (from CRYSTALS-Dilithium) for digital signatures. FIPS 205 gives you SLH-DSA, a hash-based signature scheme kept deliberately independent of lattice math, as a hedge in case lattice assumptions ever crack. None of these are "encryption" in the general sense people use the word — ML-KEM doesn't encrypt your files; it just gets two parties to a shared key so something else can.

@@ -5,6 +5,8 @@ summary: "Ensuring byte-for-byte cryptographic parity across Node.js and Python 
 order: 8
 category: "Engineering"
 ---
+image: /uploads/blog-engineering.svg
+imageAlt: Security engineering & resilient systems editorial illustration
 Most of ScatterID's cryptographic logic — canonicalization, hashing, signature handling — has natural, mature library support in Python. The client-facing SDK needed to be TypeScript, because that's where identity verification actually gets integrated: web apps, browser extensions, Node.js backends. That split created a specific, unglamorous engineering problem: making sure two implementations of the same cryptographic logic, in two different language ecosystems, always agree.
 
 They have to agree exactly. A commitment scheme depending on RFC 8785 canonicalization is only as reliable as its most inconsistent implementation. If the Python side and the TypeScript side serialize the same JSON object differently — different key ordering, different whitespace handling, different number formatting — they'll produce different hash commitments from identical input data. That's not a minor bug; it's a system where two legitimate implementations silently disagree about whether a credential is valid.

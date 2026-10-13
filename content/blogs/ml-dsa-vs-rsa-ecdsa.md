@@ -5,6 +5,8 @@ summary: "Security basis, key sizes, performance characteristics, and standard m
 order: 6
 category: "Post-Quantum"
 ---
+image: /uploads/blog-quantum.svg
+imageAlt: Post-quantum cryptography & lattice security editorial illustration
 Swapping a signature scheme sounds like a drop-in replacement — same interface, different math. In practice, moving from RSA or ECDSA to ML-DSA (the FIPS 204 standard ScatterID uses) changes more than the algorithm underneath.
 
 **Security basis.** RSA and ECDSA rely on integer factorization and the elliptic curve discrete logarithm problem — both solvable in polynomial time by Shor's algorithm on a sufficiently capable quantum computer. ML-DSA is built on the hardness of lattice problems (specifically, Module-LWE and Module-SIS), which have no known efficient quantum algorithm to date.
