@@ -86,7 +86,8 @@ footer{position:fixed;left:0;right:0;bottom:0;z-index:10;display:grid;grid-templ
   :root{--size-body:17px;--size-page-heading:24px;--size-section-heading:24px;--size-subheading:18px;--size-name:24px;--size-role:16px;--size-breadcrumb:18px;--size-contact-crumb:18px;--size-card-title:18px;--size-blog-card-title:18px;--size-work-card-title:18px;--size-small-card-title:13px;--size-tag:11px;--size-meta:13px;--size-form-label:18px;--size-control:17px;--size-button:22px}
   .bar{display:none}
   .photo{width:180px;height:270px}
-  nav,nav[hidden]{display:flex;flex-direction:row;align-items:center;gap:10px;padding:12px 18px}
+  header{padding-inline:20px}
+  nav,nav[hidden]{display:flex;flex-direction:row;align-items:center;gap:10px;padding:12px 0}
   nav .btn{padding:7px 8px}
 }
 @media(max-width:560px){
