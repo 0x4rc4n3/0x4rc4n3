@@ -1,44 +1,49 @@
 # Mudassir Javed (0x4rc4n3)
 
-**Security Engineer | Post-Quantum Cryptography | Security Architecture | CTF**
+**Security Engineer | Post-Quantum Cryptography | Identity Systems | CTF**
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0x4rc4n3-blue?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/0x4rc4n3/)
-[![Website](https://img.shields.io/badge/Website-scatterid.tech-blue)](https://www.scatterid.tech/)
+[![Website](https://img.shields.io/badge/Website-0x4rc4n3.vercel.app-blue)](https://0x4rc4n3.vercel.app)
+[![ScatterID](https://img.shields.io/badge/ScatterID-scatterid.tech-blue)](https://www.scatterid.tech/)
 [![Email](https://img.shields.io/badge/Email-Contact-red?logo=gmail&logoColor=white)](mailto:mudassirbhatti276@gmail.com)
 
 ---
 
 ## Research Interests
 
-- **Primary:** Post-quantum cryptography and lattice-based signatures (NIST FIPS 204, ML-DSA)
-- **Secondary:** Verifiable credentials, decentralized identity (DID), permissioned ledgers, crypto-agility
+- **Primary:** Post-quantum cryptography and lattice-based signatures (NIST FIPS 204 ML-DSA)
+- **Secondary:** Verifiable credentials, decentralized identity (DID), permissioned ledgers, crypto-agility, security architecture
 
 ---
 
 ## Experience
 
-- **Security Engineer**, Rynex Security (Jun 2026 - Present, hybrid)
-- **Cyber Security Intern**, Digital Empowerment Network (Jul - Sep 2025, remote)
+- **Security Engineer**, Rynex Security (Jun 2026 – Present, hybrid)  
+  Applied security engineering focused on assessment, hardening, and secure system design.
+
+- **Cyber Security Intern**, Digital Empowerment Network (Jul – Sep 2025, remote)  
+  Supported security operations and practical defensive work in a remote internship setting.
 
 ---
 
-## Projects
+## Featured Projects
 
-### ScatterID: Post-Quantum Credential Verification (Final Year Project)
-Identity verification infrastructure built on salted SHA3-256 hash commitments with selective disclosure, RFC 8785 (JCS) canonicalization, FIPS 204 **ML-DSA-65** signatures, and Hyperledger Fabric anchoring for issuance and revocation state.
+### ScatterID — Post-Quantum Credential Verification (Capstone)
+End-to-end identity verification infrastructure that signs privacy-preserving hash commitments with **FIPS 204 ML-DSA-65**, anchors credential state on a permissioned **Hyperledger Fabric** ledger, and supports offline verification. Designed for data minimization: raw personal attributes never leave the client.
 
-- Verification gateway (Express), crypto microservice (Flask), Vault-backed key storage
-- Honest by design: uses commitments, **not** zero-knowledge proofs ([why](https://www.scatterid.tech/blog))
-- Exhibited at the 2nd Industrial Open House, KFUEIT
-- [Repository](https://github.com/0x4rc4n3/ScatterID) | [Docs and blog](https://www.scatterid.tech/)
+- Self-directed security audit: discovered and remediated an unauthenticated admin interface and a disabled TLS certificate check; re-verified every fix by running the full system.
+- Delivered TypeScript SDK, crypto microservice, verification gateway, Vault-backed key storage, and public documentation + audit history.
+- Exhibited at the 2nd Industrial Open House, KFUEIT.
+- [Repository](https://github.com/0x4rc4n3/ScatterID) · [Docs & blog](https://www.scatterid.tech/)
 
-### Apex-PQ: Post-Quantum DID Portal Prototype
-Prototype university identity portal using **ML-DSA-44** (via liboqs) for challenge-response login, `did:key` identifiers, a Chrome MV3 wallet extension, and a 3-replica hash-chained SQLite ledger (SHA3-256) with a 2-of-3 write quorum. Dockerized. Educational prototype, not production software.
+### Apex-PQ — Post-Quantum DID Portal Prototype
+University identity portal prototype using **ML-DSA-44** (liboqs) for passwordless challenge-response login, `did:key`-style identifiers, a Chrome MV3 wallet extension with encrypted key vault, and a 3-replica SHA3-256 hash-chained SQLite ledger with 2-of-3 write quorum. Fully Dockerized.
 
+- Explicit threat model and known limitations documented; educational prototype, not production software.
 - [Repository](https://github.com/0x4rc4n3/Apex-PQ)
 
-### QuantX: Crypto-Agile Hybrid Auth SDK (design stage)
-Architecture and specification for a hybrid classical + PQC authentication engine where swapping algorithms is a constructor argument, not a rewrite. Built on `cryptography` and `liboqs`; no hand-rolled primitives.
+### QuantX — Crypto-Agile Hybrid Auth SDK (Design Stage)
+Architecture and specification for a hybrid classical + post-quantum authentication engine where algorithm choice, storage backend, and key custody are constructor arguments instead of rewrites. Built exclusively on established libraries (`cryptography`, `liboqs`); no hand-rolled primitives.
 
 - [Repository](https://github.com/0x4rc4n3/QuantX)
 
@@ -46,75 +51,50 @@ Architecture and specification for a hybrid classical + PQC authentication engin
 
 ## Writing
 
-Technical articles at [scatterid.tech/blog](https://www.scatterid.tech/blog): ML-DSA vs RSA/ECDSA, designing for revocation, offline verification, lattice cryptography explained, and self-auditing your own system.
+Technical articles at [scatterid.tech/blog](https://www.scatterid.tech/blog) covering ML-DSA vs RSA/ECDSA, designing for revocation, offline verification, lattice cryptography explained, data minimization without overclaiming ZK, and self-auditing a production-bound system.
 
 ---
 
-## CTF and Hackathons
+## CTF & Competitions
 
-- **Top 10 Finalist**, Ignite Regional CTF Hackathon (crypto, reverse engineering, forensics)
-- **Platform Engineer**, University CTF and Hackathon (scoring engine, web and crypto challenges)
-- Platforms: OverTheWire, TryHackMe, picoCTF, Advent of Code
+- **Top 10 Finalist**, Ignite Regional CTF Hackathon — cryptography, reverse engineering, and network forensics against national university teams.
+- **Platform Infrastructure Engineer**, University CTF & Hackathon — designed and built the scoring platform; authored web-exploitation and cryptography challenges.
+- Ongoing practice: TryHackMe, OverTheWire (Bandit), picoCTF, Advent of Code.
 
 ---
 
 ## Leadership
 
-**Cybersecurity Society, KFUEIT: Executive Board and Infrastructure Lead**
+**Executive Board Member & Infrastructure Lead — Cybersecurity Society, KFUEIT** (multi-year)
 
-- Ran weekend workshops for 100+ juniors on Linux, Bash, and Wireshark
-- Organized mini-CTFs and alumni walkthroughs
-- Served across all 4 club cabinets (events, training, infrastructure)
+- Designed and delivered recurring workshops and mini-CTF mentorship series on Linux, Bash, and network traffic analysis for **100+ undergraduates**.
+- Served across all four club cabinets, owning event execution and technical infrastructure deployment.
 
 ---
 
-## Certifications
+## Certifications & Training
 
-- ISC2 Certified in Cybersecurity (CC)
-- NAVTTC (Govt. of Pakistan), Digital Forensics and Cyber Security certificate course, Grade A (May - Aug 2023)
-- Offensive-security training aligned with the CEH curriculum, OfeHunar Pakistan (Govt.-sponsored; training, not the EC-Council exam)
+- **ISC2 Certified in Cybersecurity (CC)** — examination passed, 2026
+- **NAVTTC** (Government of Pakistan) — Cyber Security & Digital Forensics course, Grade A (May–Aug 2023)
+- Government-sponsored offensive-security training aligned with the CEH curriculum (training only; not the EC-Council exam)
 
 ---
 
 ## Skills
 
-Python, C/C++, Assembly, Bash, SQL, TypeScript/Node.js, Flask, Docker, Git, Linux (Kali/Ubuntu), Wireshark, liboqs, Hyperledger Fabric (basics)
+**Security:** Applied cryptography, post-quantum cryptography (ML-DSA / liboqs), authentication & zero trust, security auditing, vulnerability assessment, network traffic analysis, digital forensics  
+**Languages:** Python, TypeScript/Node.js, C/C++, x86 Assembly, Bash, SQL  
+**Tools & Platforms:** Linux (Ubuntu, Kali), Docker, Git, Wireshark, Flask, Hyperledger Fabric (basics), HashiCorp Vault
 
 ---
 
 ## Education
 
-**BSc Cyber Security**, Khwaja Fareed University of Engineering and IT (KFUEIT), 2022-2026
-Coursework: Cryptography, Network Defense, Digital Forensics, Applied Cryptology
-
-## Portfolio Website and CMS
-
-This repository also contains the portfolio website source. Vercel builds the static site with `npm run build` and serves the generated `dist/` directory. The Vercel settings are recorded in `vercel.json` so the build behavior is reproducible.
-
-- **Site content:** `content/site.json`, `content/works/`, and `content/blogs/`
-- **CMS:** open `/admin/` on the deployed site; the CMS backend is configured for `0x4rc4n3/0x4rc4n3` on `main`
-- **Publishing:** CMS edits are committed to GitHub; Vercel rebuilds from the updated branch
-- **Local preview build:** run `npm run build`, then serve `dist/` with any static file server
-
-The GitHub Actions workflow only validates that the site builds; Vercel is the deployment host. Keep any CMS access token private and restrict it to this repository with only the required contents permissions.
+**BS Cyber Security**, Khwaja Fareed University of Engineering & Information Technology (KFUEIT), 2022–2026  
+Coursework: Cryptography & Network Security, Applied Cryptology, Digital Forensics, Network Defense, Advanced Database Systems
 
 ---
 
-## Site notes (build, SEO, security)
+## Portfolio Website
 
-- `npm run build` generates `dist/` **and validates it**: required front matter, internal links/assets, one `<h1>` per page, alt text on every image, and no inline scripts/styles (the CSP forbids them). The GitHub Action runs the same command, so a broken link fails CI.
-- Generated automatically: canonical URLs, Open Graph/Twitter cards, JSON-LD (Person, BlogPosting), `sitemap.xml`, `robots.txt`, `feed.xml` (RSS), `404.html`, `/.well-known/security.txt`.
-- Security headers and CSP live in `vercel.json`. After changing scripts, fonts or embeds, deploy a preview and check the browser console for CSP violations. The `/admin/` CMS has its own, looser CSP and loads a version-pinned, SRI-checked Sveltia CMS build; bump the version and hash together.
-- Optional site.json fields: `formAction` (Formspree URL; otherwise the form opens the visitor's mail app), `contact.phone` (empty = hidden), `contact.website`.
-- Optional project fields: `website` (extra button) and `imageAlt` (alt text for the cover image).
-- Markdown supports headings, lists (ordered and unordered), blockquotes, fenced code blocks, links, images, bold/italic/inline code. Only http(s), mailto, tel and relative URLs are allowed in links.
-
-### Resume download
-Upload the PDF in the CMS (Profile & Site > Profile > Resume), or put it in `static/uploads/` and set `resume` in `content/site.json`. The **DOWNLOAD RESUME** button (Home + Contact) appears automatically and always downloads as `Mudassir-Javed-Resume.pdf`, whatever the uploaded file is called. No file = no button.
-
-### Blog categories and search
-- Category = the `category` field of a post. Each one gets its own page (`/blogs/category/<name>/`) and a filter button with a count. Edit order and descriptions in the CMS under Profile & Site > Blog Categories (`content/categories.json`). A new category needs no setup: type it in a post.
-- Search runs in the browser over `search-index.json` (title, category, summary and full text, rebuilt on every build). `/blogs/?q=word` opens with a search already filled in.
-
-### Page-view counter
-The footer counter increments once per browser tab session using `sessionStorage`; subsequent page changes call the read-only `get_portfolio_page_views()` RPC and do not increment again. The total is stored in a dedicated `portfolio_page_view_counter` table with row-level security enabled and no direct public table access. Both public RPCs are narrowly scoped; the site uses only Supabase's public publishable key, never a service-role key. This is a simple session counter, not security-grade analytics.
+This repository powers the personal site at [0x4rc4n3.vercel.app](https://0x4rc4n3.vercel.app). Content lives in `content/`; the site is statically generated with strong CSP, SEO, and accessibility checks in CI.
