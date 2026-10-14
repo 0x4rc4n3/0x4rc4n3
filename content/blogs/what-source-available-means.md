@@ -4,8 +4,6 @@ date: 2026-08-13
 summary: "ScatterID is licensed under PolyForm Noncommercial 1.0.0. Why transparency and honest project maturity matter more than unrestricted commercial redistribution."
 order: 3
 category: "Open Source"
-image: /uploads/blog-opensource.svg
-imageAlt: Source-available software & transparent engineering editorial illustration
 ---
 "Open source" gets used loosely, but it has a specific meaning: a license approved by the Open Source Initiative, which — among other things — must permit unrestricted commercial use. ScatterID doesn't meet that bar, and I chose that deliberately.
 

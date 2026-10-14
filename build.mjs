@@ -115,8 +115,6 @@ const dist = (...p) => R('dist', ...p);
 fs.rmSync(dist(), { recursive: true, force: true });
 const write = (p, html) => { fs.mkdirSync(path.dirname(dist(p)), { recursive: true }); fs.writeFileSync(dist(p), html); };
 const fix = (html, b) => html.replace(/(src|href)="\/(?!\/)/g, `$1="${b}`);
-const initials = s => s.split(/\s+/).map(w => (w.match(/[A-Za-z0-9]/) || [''])[0]).join('').slice(0, 2).toUpperCase();
-const hue = s => [...s].reduce((a, c) => a + c.charCodeAt(0), 0) % 360;
 const buildISO = new Date().toISOString();
 const resumeFile = site.resume && fs.existsSync(R('static', site.resume)) ? site.resume : '';
 if (site.resume && !resumeFile) console.warn(`note: resume "${site.resume}" not found in static/, so the download button is hidden`);
@@ -127,10 +125,19 @@ const readMins = body => Math.max(1, Math.round(body.split(/\s+/).filter(Boolean
 const ogDefault = abs(site.ogImage || site.photo);
 const ogFor = img => (img && !/\.svg$/i.test(img) ? abs(img) : null);
 
-const thumb = (it, cls) => it.image
-  ? `<img class="thumb ${cls}" src="${esc(it.image)}" alt="" loading="lazy" decoding="async">`
-  : `<span class="thumb ${cls} hue-${hue(it.title)}" aria-hidden="true">${esc(initials(it.title))}</span>`;
-const card = (it, kind, b, small, excerpt = false) => `<a class="card ${kind === 'blogs' ? 'blog-card' : 'work-card'}" href="${b}${kind}/${it.slug}/"${kind === 'blogs' ? ` data-slug="${esc(it.slug)}"` : ''}>${thumb(it, small ? 's' : '')}<span class="ct"><span class="${small ? 'ctitle sm' : 'ctitle'}">${esc(it.title)}</span>${it.category || it.type ? `<span class="tag">${esc(it.category || it.type)}</span>` : ''}${excerpt && kind === 'works' && (it.impact || it.summary) ? `<span class="impact">${esc(it.impact || it.summary)}</span>` : excerpt && it.summary ? `<span class="excerpt">${esc(it.summary)}</span>` : ''}</span><span class="chev" aria-hidden="true">&gt;</span></a>`;
+const thumb = (it, kind, cls) => {
+  const glyphs = {
+    credential: '<rect x="7" y="9" width="34" height="28" rx="3"/><circle cx="17" cy="19" r="4"/><path d="M11 31c1-5 11-5 12 0M27 18h9M27 25h9M27 32h6"/>',
+    shield: '<path d="M24 5 39 11v10c0 10-6 17-15 22C15 38 9 31 9 21V11z"/><path d="m17 24 5 5 10-11"/>',
+    network: '<circle cx="24" cy="24" r="5"/><circle cx="10" cy="12" r="3"/><circle cx="38" cy="12" r="3"/><circle cx="10" cy="36" r="3"/><circle cx="38" cy="36" r="3"/><path d="m20 20-8-6m16 6 8-6m-16 14-8 6m16-6 8 6"/>',
+    book: '<path d="M24 13c-5-5-12-5-18-4v27c7-1 13 0 18 5 5-5 11-6 18-5V9c-6-1-13-1-18 4Z"/><path d="M24 14v27M11 17c4 0 7 1 9 3m-9 5c4 0 7 1 9 3m17-11c-4 0-7 1-9 3m9 5c-4 0-7 1-9 3"/>',
+    lattice: '<path d="m24 6 18 18-18 18L6 24zM15 15l18 18M33 15 15 33M6 24h36M24 6v36"/><circle cx="24" cy="24" r="2"/>'
+  };
+  const key = kind === 'works' ? (it.slug === 'scatterid' ? 'credential' : it.slug === 'apex-pq' ? 'shield' : 'network')
+    : /quantum/i.test(it.category || '') ? 'lattice' : 'book';
+  return `<span class="thumb icon-thumb ${cls}" aria-hidden="true"><svg viewBox="0 0 48 48" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${glyphs[key]}</g></svg></span>`;
+};
+const card = (it, kind, b, small, excerpt = false) => `<a class="card ${kind === 'blogs' ? 'blog-card' : 'work-card'}" href="${b}${kind}/${it.slug}/"${kind === 'blogs' ? ` data-slug="${esc(it.slug)}"` : ''}>${thumb(it, kind, small ? 's' : '')}<span class="ct"><span class="${small ? 'ctitle sm' : 'ctitle'}">${esc(it.title)}</span>${it.category || it.type ? `<span class="tag">${esc(it.category || it.type)}</span>` : ''}${excerpt && kind === 'works' && (it.impact || it.summary) ? `<span class="impact">${esc(it.impact || it.summary)}</span>` : excerpt && it.summary ? `<span class="excerpt">${esc(it.summary)}</span>` : ''}</span><span class="chev" aria-hidden="true">&gt;</span></a>`;
 const side = (b, showW = true, showB = true) =>
   (showW ? `<h2>Latest Work</h2>${works.slice(0, 4).map(w => card(w, 'works', b)).join('')}<a class="btn sm" href="${b}works/">All Works &gt;</a>` : '') +
   (showB && blogs.length ? `<h2 class="gap">Latest Blogs</h2>${blogs.slice(0, 4).map(x => card(x, 'blogs', b, true)).join('')}<a class="btn sm" href="${b}blogs/">All Blogs &gt;</a>` : '');
@@ -151,7 +158,7 @@ function page({ title, desc, depth = 0, base, main, aside, archive = false, acti
 <link rel="icon" type="image/png" sizes="128x128" href="${b}favicon.png"><link rel="apple-touch-icon" sizes="128x128" href="${b}favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Fragment+Mono:ital@0;1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="${b}style.css?v=${assetVersion}"><link rel="stylesheet" href="${b}hues.css">${jsonld}</head><body>
+<link rel="stylesheet" href="${b}style.css?v=${assetVersion}">${jsonld}</head><body>
 <a class="skip" href="#main">Skip to content</a>
 <header><div class="bar"><button class="btn" id="mb" aria-expanded="false" aria-controls="nav">MENU</button></div>
 <nav id="nav" aria-label="Main" hidden>${navItem('HOME', b, 'home')}${navItem('WORKS', `${b}works/`, 'works')}${navItem('BLOGS', `${b}blogs/`, 'blogs')}${navItem('CONTACT', `${b}contact/`, 'contact')}</nav><div class="site-search"><button class="btn search-toggle" id="search-toggle" type="button" aria-expanded="false" aria-controls="site-search-panel" aria-label="Open site search"><span class="search-glyph" aria-hidden="true"></span></button><div class="search-panel" id="site-search-panel" hidden><label class="sr-only" for="site-search-input">Search the whole website</label><input id="site-search-input" type="search" autocomplete="off" spellcheck="false" data-index="${b}search-index.json" aria-controls="site-search-results"></div></div></header>
@@ -219,7 +226,7 @@ const chipBar = (b, active) => `<div class="chips" role="navigation" aria-label=
 const blogList = (b, items, active) => `${chipBar(b, active)}<div>${items.map(x => card(x, 'blogs', b, true, true)).join('') || '<p>No posts yet.</p>'}</div>`;
 write('blogs/index.html', page({
   title: `Blogs | ${site.name}`, desc: `Writing on post-quantum cryptography, identity, revocation and honest security engineering by ${site.name}.`, depth: 1, active: 'blogs', archive: true, path: 'blogs/',
-  main: `${crumbs('../', ['blogs', 'Blogs'])}<h1 class="archive-heading">Blogs</h1>${blogList('../', blogs, null)}<p><a class="btn sm" href="../feed.xml">RSS FEED</a></p>`,
+  main: `${crumbs('../', ['blogs', 'Blogs'])}<h1 class="archive-heading">Blogs</h1>${blogList('../', blogs, null)}`,
 }));
 for (const [categoryIndex, x] of cats.entries()) {
   write(`blogs/category/${x.slug}/index.html`, page({
@@ -265,9 +272,6 @@ fs.cpSync(R('static'), dist(), { recursive: true });
 if (fs.existsSync(R('admin'))) fs.cpSync(R('admin'), dist('admin'), { recursive: true });
 fs.writeFileSync(dist('.nojekyll'), '');
 
-// per-title thumbnail colours as a stylesheet (inline style attributes would violate the CSP)
-const hues = [...new Set([...works, ...blogs].map(i => hue(i.title)))].sort((a, b) => a - b);
-fs.writeFileSync(dist('hues.css'), hues.map(h => `.hue-${h}{background:hsl(${h} 35% 55%)}`).join('\n') + '\n');
 
 const urls = [['', buildISO.slice(0, 10)], ['works/', buildISO.slice(0, 10)], ['blogs/', blogs[0]?.date || buildISO.slice(0, 10)], ['contact/', buildISO.slice(0, 10)],
   ...works.map(w => [`works/${w.slug}/`, buildISO.slice(0, 10)]), ...blogs.map(x => [`blogs/${x.slug}/`, x.date]), ...cats.map(x => [`blogs/category/${x.slug}/`, x.posts[0].date])];

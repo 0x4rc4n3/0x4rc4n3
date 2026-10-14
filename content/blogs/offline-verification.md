@@ -4,8 +4,6 @@ date: 2026-08-19
 summary: "Why verifying credentials without requiring live round-trips to central services matters for hospitals, checkpoints, and real-world network outages."
 order: 5
 category: "Engineering"
-image: /uploads/blog-engineering.svg
-imageAlt: Security engineering & resilient systems editorial illustration
 ---
 It's easy to assume every verification check can just hit a live server. In practice, that assumption breaks constantly — a hospital intake desk with unreliable connectivity, a border checkpoint, a rural clinic, an airport gate agent working through a network outage. If verifying a credential requires a live round-trip to a central service, the system fails exactly when it's needed most.
 

@@ -4,8 +4,6 @@ date: 2026-08-25
 summary: "Cryptographic soundness and system security are not the same thing. How a structured self-audit surfaced real-world implementation flaws."
 order: 7
 category: "Security"
-image: /uploads/blog-security.svg
-imageAlt: Security audit & threat analysis editorial illustration
 ---
 It's tempting to treat "cryptographically secure" as the finish line. ML-DSA-65 signatures are sound. The commitment scheme is sound. Ship it.
 

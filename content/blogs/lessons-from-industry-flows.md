@@ -4,8 +4,6 @@ date: 2026-09-03
 summary: "Building verification flows across healthcare, aviation, finance, and KYC surfaces why a general-purpose identity protocol cannot make one-size-fits-all assumptions."
 order: 10
 category: "Engineering"
-image: /uploads/blog-engineering.svg
-imageAlt: Security engineering & resilient systems editorial illustration
 ---
 When you design an identity verification system in the abstract, it's easy to assume "verification" means roughly the same thing everywhere — check a credential, confirm it's valid, move on. Building sample flows for ScatterID's playground across healthcare, aviation, finance, and KYC use cases made it obvious how much that assumption doesn't hold.
 
