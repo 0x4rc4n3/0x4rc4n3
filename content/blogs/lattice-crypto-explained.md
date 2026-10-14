@@ -4,9 +4,9 @@ date: 2026-09-12
 summary: "What a lattice actually is, why solving problems on one is hard even for a quantum computer, and why ScatterID's signatures are built on it."
 order: 13
 category: "Post-Quantum"
----
 image: /uploads/blog-quantum.svg
 imageAlt: Post-quantum cryptography & lattice security editorial illustration
+---
 "Post-quantum lattice cryptography" gets thrown around as if the word "lattice" is self-explanatory. It isn't. Most explanations either stay at the buzzword level or jump straight into module dimensions and ring polynomials. Here's the version in between.
 
 **Start with a grid, not a lattice.**

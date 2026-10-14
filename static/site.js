@@ -19,46 +19,46 @@
     tick(); setInterval(tick, 1000);
   }
 
-  // ---- page-view counter: one atomic Supabase increment for every page load ----
+  // ---- visitor counter: increment once per tab session, never on page navigation ----
   var vn = document.getElementById('visitor-number');
   if (vn) {
     var lastCount = '';
+    var countedThisSession = false;
     try {
       var savedCount = localStorage.getItem('visitor-last-count');
       if (/^\d+$/.test(savedCount || '')) lastCount = savedCount;
-    } catch (e) {}
-    if (lastCount) vn.textContent = lastCount.padStart(4, '0');
-    var countedThisSession = false;
-    try { countedThisSession = sessionStorage.getItem('portfolio-view-counted') === '1'; } catch (e) {
-      try { countedThisSession = /(?:^|;\s*)portfolio-view-counted=1(?:;|$)/.test(document.cookie); } catch (ignored) {}
+      countedThisSession = sessionStorage.getItem('portfolio-view-counted') === '1';
+      var sessionCount = sessionStorage.getItem('portfolio-session-count');
+      if (/^\d+$/.test(sessionCount || '')) lastCount = sessionCount;
+    } catch (e) {
+      try {
+        countedThisSession = /(?:^|;\s*)portfolio-view-counted=1(?:;|$)/.test(document.cookie);
+      } catch (ignored) {}
     }
+    if (lastCount) vn.textContent = lastCount.padStart(4, '0');
     if (!countedThisSession) {
+      // Set the tab guard before the network request, so a quick navigation cannot double-count.
       try { sessionStorage.setItem('portfolio-view-counted', '1'); }
       catch (e) { try { document.cookie = 'portfolio-view-counted=1; Path=/; SameSite=Lax; Secure'; } catch (ignored) {} }
+      var counterUrl = 'https://jbjzzvibtgtgzlbchqnm.supabase.co';
+      var counterKey = 'sb_publishable_jyc4IQsrNU_G5B63HVzNPg_MPwC7RhD';
+      fetch(counterUrl + '/rest/v1/rpc/increment_portfolio_page_views', {
+        method: 'POST',
+        headers: { apikey: counterKey, Authorization: 'Bearer ' + counterKey, 'Content-Type': 'application/json' },
+        body: '{}',
+        cache: 'no-store'
+      }).then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+        .then(function (d) {
+          var count = Number(d);
+          if (!Number.isSafeInteger(count) || count < 0) throw 0;
+          vn.textContent = String(count).padStart(4, '0');
+          try { localStorage.setItem('visitor-last-count', String(count)); sessionStorage.setItem('portfolio-session-count', String(count)); } catch (e) {}
+        }).catch(function () {
+          // Keep the last real count (or the neutral initial 0000) on transient network failures.
+          if (lastCount) vn.textContent = lastCount.padStart(4, '0');
+        });
     }
-    var counterUrl = 'https://jbjzzvibtgtgzlbchqnm.supabase.co';
-    var counterKey = 'sb_publishable_jyc4IQsrNU_G5B63HVzNPg_MPwC7RhD';
-    var rpc = countedThisSession ? 'get_portfolio_page_views' : 'increment_portfolio_page_views';
-    fetch(counterUrl + '/rest/v1/rpc/' + rpc, {
-      method: 'POST',
-      headers: { apikey: counterKey, Authorization: 'Bearer ' + counterKey, 'Content-Type': 'application/json' },
-      body: '{}',
-      cache: 'no-store'
-    })
-      .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
-      .then(function (d) {
-        var count = Number(d);
-        if (!Number.isSafeInteger(count) || count < 0) throw 0;
-        vn.textContent = String(count).padStart(4, '0');
-        try { localStorage.setItem('visitor-last-count', String(count)); } catch (e) {}
-      })
-      .catch(function (e) {
-        // Keep the last real count (or the neutral initial 0000) on transient network failures.
-        console.warn('Visitor counter could not refresh:', e);
-        if (lastCount) vn.textContent = lastCount.padStart(4, '0');
-      });
   }
-
   // ---- contact form (mailto fallback) ----
   var form = document.getElementById('cf');
   if (form && form.dataset.mailto) {
