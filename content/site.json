@@ -2,61 +2,61 @@
   "name": "Mudassir Javed",
   "role": "Security Engineer",
   "url": "https://0x4rc4n3.vercel.app",
-  "homeTitle": "Mudassir Javed | Security Engineer, Post-Quantum Cryptography",
+  "homeTitle": "Mudassir Javed | Security Engineer · Post-Quantum Cryptography",
   "photo": "/uploads/mudassir.jpg",
   "ogImage": "/uploads/og-default.png",
   "resume": "/uploads/Mudassir-Javed-Resume.pdf",
-  "description": "Security engineer and cyber security graduate focused on post-quantum cryptography, secure authentication and security auditing. Builder of ScatterID.",
+  "description": "Security engineer specializing in post-quantum cryptography, secure authentication, and identity systems. Builder of ScatterID — a production-oriented PQC credential verification framework.",
   "about": [
-    "I'm Mudassir Javed, a security engineer who finds and fixes weaknesses where cryptography meets real systems: authentication, identity and credential verification.",
-    "I hold a BS in Cyber Security (KFUEIT, 2022–2026). My capstone, **ScatterID**, is a post-quantum credential verification system built on FIPS 204 ML-DSA-65 signatures and salted SHA3-256 commitments, which I then audited myself. I finished Top 10 at a regional CTF, built the scoring platform for my university's CTF, and mentored 100+ students.",
-    "I'm interested in security roles in banking and fintech, where protecting customer identity and data is the job. If that's your team, [get in touch](/contact/)."
+    "I'm Mudassir Javed, a security engineer who designs and hardens systems where cryptography meets real identity infrastructure.",
+    "I hold a BS in Cyber Security (KFUEIT, 2022–2026). My capstone, **ScatterID**, is an end-to-end post-quantum credential system built on FIPS 204 ML-DSA-65 signatures and salted SHA3-256 commitments. I performed a full self-audit, found and fixed real flaws, and published the code, documentation, and audit history. I finished Top 10 at a national-level CTF, built the scoring platform for my university’s CTF, and mentored 100+ students.",
+    "I am currently a Security Engineer at Rynex Security and am looking for information-security roles in banking and fintech where protecting customer identity and data is the core mission. If that describes your team, [get in touch](/contact/)."
   ],
-  "skillsTitle": "Technical Expertise & Toolkit",
+  "skillsTitle": "Technical Expertise",
   "skills": [
+    { "label": "Security", "value": "Applied cryptography, post-quantum cryptography (ML-DSA / liboqs), authentication & zero trust, security auditing, vulnerability assessment, network traffic analysis, digital forensics" },
     { "label": "Languages", "value": "Python, TypeScript/Node.js, C/C++, x86 Assembly, Bash, SQL" },
-    { "label": "Security", "value": "Applied cryptography, post-quantum cryptography (ML-DSA, liboqs), authentication & zero trust, security auditing, vulnerability assessment, network traffic analysis, digital forensics" },
-    { "label": "Coursework", "value": "Cryptography & Network Security, Applied Cryptology, Digital Forensics, Network Defense, Advanced Database Systems" },
-    { "label": "Tools", "value": "Linux (Ubuntu, Kali), Wireshark, Docker, Git, Flask, Hyperledger Fabric (basics)" }
+    { "label": "Tools & Platforms", "value": "Linux (Ubuntu, Kali), Docker, Git, Wireshark, Flask, Hyperledger Fabric (basics), HashiCorp Vault" },
+    { "label": "Coursework", "value": "Cryptography & Network Security, Applied Cryptology, Digital Forensics, Network Defense, Advanced Database Systems" }
   ],
-  "experienceTitle": "Leadership & Experience",
+  "experienceTitle": "Experience & Leadership",
   "experience": [
     {
       "title": "Security Engineer",
-      "org": "Rynex Security (Jun 2026 – Present, hybrid)",
-      "desc": ""
+      "org": "Rynex Security · Jun 2026 – Present · Hybrid",
+      "desc": "Applied security engineering focused on assessment, hardening, and secure system design."
     },
     {
       "title": "Cyber Security Intern",
-      "org": "Digital Empowerment Network (Jul – Sep 2025, remote)",
-      "desc": ""
+      "org": "Digital Empowerment Network · Jul – Sep 2025 · Remote",
+      "desc": "Supported security operations and practical defensive work."
     },
     {
       "title": "Executive Board Member & Infrastructure Lead",
-      "org": "Cybersecurity Society, KFUEIT (Multi-year)",
-      "desc": "Ran a recurring workshop and mini-CTF mentorship series on Linux, Bash and network traffic analysis for 100+ undergraduates. Served across all four club cabinets, leading event execution and technical infrastructure deployment."
+      "org": "Cybersecurity Society, KFUEIT · Multi-year",
+      "desc": "Designed and delivered recurring workshops and mini-CTF mentorship series on Linux, Bash and network traffic analysis for 100+ undergraduates. Served across all four club cabinets, owning event execution and technical infrastructure."
     },
     {
       "title": "Platform Infrastructure Engineer",
       "org": "University CTF & Hackathon",
-      "desc": "Built the scoring platform and authored web-exploitation and cryptography challenges."
+      "desc": "Built the scoring platform and authored web-exploitation and cryptography challenges used by competing teams."
     }
   ],
   "educationTitle": "Education",
   "education": [
     {
       "title": "BS Cyber Security",
-      "org": "Khwaja Fareed University of Engineering and IT (KFUEIT), 2022–2026",
-      "desc": ""
+      "org": "Khwaja Fareed University of Engineering & IT (KFUEIT), 2022–2026",
+      "desc": "Cumulative GPA: 3.04 / 4.00"
     }
   ],
   "extrasTitle": "Awards, Certifications & Training",
   "extras": [
     { "label": "Award", "text": "Top 10 Finalist, Ignite Regional CTF Hackathon (cryptography, reverse engineering, network forensics)." },
     { "label": "Exhibition", "text": "ScatterID exhibited at the 2nd Industrial Open House, KFUEIT." },
-    { "label": "Certification", "text": "ISC2 Certified in Cybersecurity (CC), examination passed, 2026." },
-    { "label": "Training", "text": "NAVTTC (Govt. of Pakistan) Cyber Security & Digital Forensics course, Grade A (May – Aug 2023). Offensive-security training aligned with the CEH curriculum, OfeHunar Pakistan (training only, not the EC-Council exam)." },
-    { "label": "Practice", "text": "TryHackMe, OverTheWire (Bandit), PicoCTF, Advent of Code." }
+    { "label": "Certification", "text": "ISC2 Certified in Cybersecurity (CC) — examination passed, 2026." },
+    { "label": "Training", "text": "NAVTTC (Govt. of Pakistan) Cyber Security & Digital Forensics course, Grade A (May–Aug 2023). Government-sponsored offensive-security training aligned with the CEH curriculum (training only)." },
+    { "label": "Practice", "text": "TryHackMe, OverTheWire (Bandit), picoCTF, Advent of Code." }
   ],
   "contact": {
     "email": "mudassirbhatti276@gmail.com",
@@ -64,7 +64,7 @@
     "linkedin": "https://www.linkedin.com/in/0x4rc4n3",
     "website": "https://www.scatterid.tech/",
     "phone": "",
-    "location": "Punjab, Pakistan"
+    "location": "Multan, Pakistan"
   },
   "formAction": ""
 }
