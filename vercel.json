@@ -24,7 +24,7 @@
         { "key": "X-Content-Type-Options", "value": "nosniff" },
         { "key": "Referrer-Policy", "value": "no-referrer" },
         { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
-        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com; style-src 'self' 'unsafe-inline' https://unpkg.com https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com https://unpkg.com; img-src 'self' data: blob: https:; media-src 'self' blob: https:; connect-src 'self' https://api.github.com https://github.com https://raw.githubusercontent.com https://unpkg.com https://cdn.jsdelivr.net; frame-src 'self' https://github.com; object-src 'none'; base-uri 'self'; frame-ancestors 'self'" }
+        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com; style-src 'self' 'unsafe-inline' https://unpkg.com https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com https://unpkg.com https://cdn.jsdelivr.net; img-src 'self' data: blob: https:; media-src 'self' blob: https:; connect-src 'self' https://api.github.com https://github.com https://raw.githubusercontent.com https://unpkg.com https://cdn.jsdelivr.net; frame-src 'self' https://github.com; object-src 'none'; base-uri 'self'; frame-ancestors 'self'" }
       ]
     }
   ]
