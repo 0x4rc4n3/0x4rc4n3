@@ -10,7 +10,7 @@ Most post-quantum migration talk starts with the algorithm: ML-KEM or ML-DSA, hy
 
 Most teams cannot answer it. Cryptography does not live in one module. It sits in application code, TLS configuration, certificates, key stores, third-party libraries, and firmware. Nobody wrote it all down, because nobody had to.
 
-A Cryptography Bill of Materials (CBOM) fixes that. It is a structured, machine-readable inventory of the algorithms, keys, certificates, libraries and protocols used across software and systems, and it extends the SBOM idea to cryptography. CycloneDX added native CBOM support in version 1.6, released in 2024. That means one bill of materials can carry both software components and cryptographic assets. [www.encryptionconsulting.com +2](https://www.encryptionconsulting.com/?p=92398)
+A Cryptography Bill of Materials (CBOM) fixes that. It is a structured, machine-readable inventory of the algorithms, keys, certificates, libraries and protocols used across software and systems, and it extends the SBOM idea to cryptography. CycloneDX added native CBOM support in version 1.6, released in 2024. That means one bill of materials can carry both software components and cryptographic assets. [www.encryptionconsulting.com](https://www.encryptionconsulting.com/?p=92398)
 
 Each entry is a cryptographic asset with a type, such as an algorithm, certificate, protocol, or key material, plus details like key size and where it was found. That detail is what makes it useful. A scan can flag algorithms such as RSA, ECDSA, DSA and ECDH as quantum-vulnerable, so migration planning becomes filtering a file instead of holding a meeting. [binarly](https://docs.binarly.io/user-guides/export/cbom)
 
