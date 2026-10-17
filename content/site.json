@@ -1,32 +1,36 @@
 {
   "name": "Mudassir Javed",
-  "role": "Cyber Security",
+  "role": "Security Engineer",
   "photo": "/uploads/mudassir.jpg",
-  "description": "Cyber Security graduate focused on applied cryptography, secure authentication and security auditing.",
+  "description": "Mudassir Javed — security engineer focused on applied cryptography, post-quantum systems, and secure identity.",
   "about": [
-    "I'm Mudassir Javed, a cyber security graduate obsessed with the intersection of cryptography and secure systems.",
-    "I hold a BS in Cyber Security (KFUEIT, 2022–2026) with hands-on experience in applied cryptography, secure authentication and security auditing. I built and audited a post-quantum identity system, finished Top 10 in a national-level CTF, and mentored 100+ students.",
-    "I'm looking to start a career in information security within banking, helping protect customer data and systems."
+    "I build and audit security systems, with a focus on applied cryptography, post-quantum security, and digital identity.",
+    "Interested in practical designs that make security claims clear and testable."
   ],
   "skillsTitle": "Technical Expertise & Toolkit",
   "skills": [
-    {"label": "Languages", "value": "Python, C++, x86 Assembly, Bash, SQL"},
-    {"label": "Security", "value": "Applied cryptography, post-quantum cryptography, authentication & zero trust, vulnerability assessment, network traffic analysis, digital forensics"},
-    {"label": "Coursework", "value": "Cryptography & Network Security, Applied Cryptology, Digital Forensics, Network Defense, Advanced Database Systems"},
-    {"label": "Tools", "value": "Linux (Ubuntu, Kali), Wireshark, Docker, Git"}
+    {"label": "Security", "value": "Applied cryptography, post-quantum security, identity verification"},
+    {"label": "Engineering", "value": "Python, TypeScript, C++, Bash, APIs"},
+    {"label": "Tools", "value": "Linux, Docker, Git, Wireshark"}
   ],
-  "experienceTitle": "Leadership & Experience",
+  "experienceTitle": "Experience",
   "experience": [
-    {"title": "Executive Board Member & Infrastructure Lead", "org": "Cybersecurity Society, KFUEIT (Multi-year)", "desc": "Ran a recurring workshop and mini-CTF mentorship series on Linux, Bash and network traffic analysis for 100+ undergraduates. Served across all four club cabinets, leading event execution and technical infrastructure deployment."},
-    {"title": "Platform Infrastructure Engineer", "org": "University CTF & Hackathon", "desc": "Built the scoring platform and authored web-exploitation and cryptography challenges."}
+    {"title": "Security Engineer", "org": "Rynex Security · Jun 2026–Present", "desc": ""},
+    {"title": "Cyber Security Intern", "org": "Digital Empowerment Network · Jul–Sep 2025", "desc": ""},
+    {"title": "Infrastructure Lead", "org": "Cybersecurity Society, KFUEIT", "desc": "Led workshops and mini-CTFs for 100+ students."}
   ],
-  "extrasTitle": "Awards, Certifications & Training",
+  "extrasTitle": "Highlights",
   "extras": [
-    {"label": "Award", "text": "Top 10 Finalist, Ignite Regional CTF Hackathon (cryptography, reverse engineering, network forensics)."},
-    {"label": "Certification", "text": "ISC2 Certified in Cybersecurity (CC), examination passed, 2026."},
-    {"label": "Training", "text": "NAVTTC Cyber Security & Digital Forensics; government-sponsored offensive-security training aligned with the CEH curriculum."},
-    {"label": "Practice", "text": "TryHackMe, OverTheWire (Bandit), PicoCTF, Advent of Code."}
+    {"label": "Award", "text": "Top 10 finalist, Ignite Regional CTF Hackathon"},
+    {"label": "Certification", "text": "ISC2 Certified in Cybersecurity (CC)"},
+    {"label": "Education", "text": "BSc Cyber Security, KFUEIT · 2022–2026"}
   ],
-  "contact": {"email": "mudassirbhatti276@gmail.com", "github": "https://github.com/0x4rc4n3", "linkedin": "https://www.linkedin.com/in/0x4rc4n3", "phone": "+92 311 6991342", "location": "Multan, Pakistan"},
+  "contact": {
+    "email": "mudassirbhatti276@gmail.com",
+    "github": "https://github.com/0x4rc4n3",
+    "linkedin": "https://www.linkedin.com/in/0x4rc4n3",
+    "phone": "+92 311 6991342",
+    "location": "Punjab, Pakistan"
+  },
   "formAction": ""
 }

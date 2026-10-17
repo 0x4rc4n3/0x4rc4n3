@@ -50,10 +50,12 @@ collections:
       - {label: Tag (e.g. OPEN SOURCE), name: type, widget: string}
       - {label: Order (1 = first), name: order, widget: number, value_type: int, default: 10}
       - {label: Thumbnail / cover image, name: image, widget: image, required: false}
+      - {label: Card initials (if no image), name: mark, widget: string, required: false}
       - {label: Tech stack, name: stack, widget: string, required: false}
       - {label: Duration, name: duration, widget: string, required: false}
       - {label: Impact, name: impact, widget: string, required: false}
-      - {label: Link, name: link, widget: string, required: false}
+      - {label: Repository URL, name: link, widget: string, required: false}
+      - {label: Project website, name: site, widget: string, required: false}
       - {label: Summary, name: summary, widget: text}
       - {label: Body, name: body, widget: markdown}
   - name: blogs
@@ -66,6 +68,7 @@ collections:
     fields:
       - {label: Title, name: title, widget: string}
       - {label: Date, name: date, widget: string, hint: 'YYYY-MM-DD'}
+      - {label: Order (date tie-breaker), name: order, widget: number, value_type: int, default: 100}
       - {label: Cover image, name: image, widget: image, required: false}
       - {label: Summary, name: summary, widget: text}
       - {label: Body, name: body, widget: markdown}

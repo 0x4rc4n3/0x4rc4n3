@@ -97,3 +97,7 @@ This repository also contains the portfolio website source. Vercel builds the st
 - **Local preview build:** run `npm run build`, then serve `dist/` with any static file server
 
 The GitHub Actions workflow only validates that the site builds; Vercel is the deployment host. Keep any CMS access token private and restrict it to this repository with only the required contents permissions.
+
+## CMS quick guide
+
+Open [the CMS](https://0x4rc4n3.vercel.app/admin/) and sign in with a GitHub fine-grained token limited to this repository, with **Contents: read and write**. Edit **Profile & Site**, **Works**, or **Blogs**, then publish; the CMS commits to `main` and Vercel rebuilds the site. For a new blog, add a title, date, short summary, and Markdown body. Keep the token private.
