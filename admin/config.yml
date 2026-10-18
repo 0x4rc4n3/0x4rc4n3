@@ -3,6 +3,10 @@ backend:
   name: github
   repo: 0x4rc4n3/0x4rc4n3
   branch: main
+  base_url: https://0x4rc4n3.vercel.app/api/cms-auth
+  auth_endpoint: auth.html
+  auth_scope: "public_repo,read:user"
+  site_domain: 0x4rc4n3.vercel.app
 media_folder: static/uploads
 public_folder: /uploads
 collections:
